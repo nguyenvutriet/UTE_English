@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">EnglishApp</string>
+    <string name="back">Quay lai</string>
+    <string name="register_title">Dang ky</string>
+    <string name="register_subtitle">Tao tai khoan de tiep tuc</string>
+    <string name="hint_full_name">Ho va ten</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Mat khau</string>
+    <string name="toggle_password">Hien hoac an mat khau</string>
+    <string name="or">Hoac</string>
+    <string name="register_google">Dang ky voi Google</string>
+    <string name="already_have_account">Da co tai khoan? </string>
+    <string name="login">Dang nhap</string>
+    <string name="terms_and_privacy">Toi dong y voi Dieu khoan dich vu va Chinh sach bao mat</string>
+    <string name="login_title">Đăng nhập</string>
+    <string name="login_subtitle">Nhập email và mật khẩu để đăng nhập</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="no_account">Chưa có tài khoản? </string>
+    <string name="register">Đăng ký</string>
+    <string name="sign_in_google">Đăng nhập với Google</string>
+</resources>
