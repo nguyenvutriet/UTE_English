@@ -16,9 +16,14 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".BookActivity" />
         <activity android:name=".DictionaryActivity" />
+        <activity android:name=".LearningMethodActivity" />
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".LearningGrammarMethodActivity" />
+        <activity android:name=".TopicActivity" />
+        <activity android:name=".ResultActivity" />
 
         <activity
-            android:name=".LearningMethodActivity"
+            android:name=".TopicGrammarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
