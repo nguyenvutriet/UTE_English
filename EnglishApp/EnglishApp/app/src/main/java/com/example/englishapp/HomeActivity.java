@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -14,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class HomeActivity extends AppCompatActivity {
 
     LinearLayout btnProfile, btnGrammar;
+    TextView btnLearningMethod;
+    CardView cardVocabulary, cardExerciseHome, cardDictionaryHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,10 @@ public class HomeActivity extends AppCompatActivity {
 
         btnProfile = findViewById(R.id.btnProfile);
         btnGrammar = findViewById(R.id.btnGrammar);
+        btnLearningMethod = findViewById(R.id.btnLearningMethod);
+        cardVocabulary = findViewById(R.id.cardVocabulary);
+        cardExerciseHome = findViewById(R.id.cardExerciseHome);
+        cardDictionaryHome = findViewById(R.id.cardDictionaryHome);
 
         applyWindowInsets();
 
@@ -33,6 +41,28 @@ public class HomeActivity extends AppCompatActivity {
         btnGrammar.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, TopicGrammarActivity.class));
         });
+
+        btnLearningMethod.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, LearningMethodActivity.class));
+        });
+
+        if (cardVocabulary != null) {
+            cardVocabulary.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, TopicActivity.class));
+            });
+        }
+
+        if (cardExerciseHome != null) {
+            cardExerciseHome.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, ExercisePageActivity.class));
+            });
+        }
+
+        if (cardDictionaryHome != null) {
+            cardDictionaryHome.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, DictionaryActivity.class));
+            });
+        }
     }
 
     private void applyWindowInsets() {

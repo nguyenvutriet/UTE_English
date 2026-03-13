@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,8 @@ public class DictionaryActivity extends AppCompatActivity {
 
         recycler.setAdapter(adapter);
 
+        setupBackButton();
+
         EditText search=findViewById(R.id.edtSearch);
 
         search.addTextChangedListener(new TextWatcher(){
@@ -57,6 +60,13 @@ public class DictionaryActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    private void setupBackButton() {
+        ImageView backButton = findViewById(R.id.btnBack);
+        if (backButton != null) {
+            backButton.setOnClickListener(v -> finish());
+        }
     }
 
     private List<Word> getWords(){

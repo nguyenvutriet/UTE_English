@@ -1,6 +1,8 @@
 package com.example.englishapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,31 +13,43 @@ import java.util.List;
 
 public class TopicActivity extends AppCompatActivity {
 
+    private TopicAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
 
-        RecyclerView recycler=findViewById(R.id.topicRecycler);
-
+        RecyclerView recycler = findViewById(R.id.topicRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Topic> list=new ArrayList<>();
-
-        list.add(new Topic("Động vật",R.drawable.animal,10,0));
-        list.add(new Topic("Cây cối",R.drawable.tree,10,0));
-        list.add(new Topic("Quần áo",R.drawable.clothes,10,0));
-        list.add(new Topic("Vật dụng bếp",R.drawable.kitchen,10,0));
-        list.add(new Topic("Đồ ăn",R.drawable.food,10,0));
-        list.add(new Topic("Lễ hội",R.drawable.festival,10,0));
-        list.add(new Topic("Trái cây",R.drawable.fruit,10,0));
-        list.add(new Topic("Phương tiện",R.drawable.vehicle,10,0));
-        list.add(new Topic("Công nghệ",R.drawable.tech,10,0));
-
-        TopicAdapter adapter=new TopicAdapter(list);
-
+        adapter = new TopicAdapter(new ArrayList<>(), topic -> {
+            Intent intent = new Intent(TopicActivity.this, TopicDetailActivity.class);
+            intent.putExtra(TopicDetailActivity.EXTRA_TOPIC_ID, topic.id);
+            startActivity(intent);
+        });
         recycler.setAdapter(adapter);
 
+        ImageView backButton = findViewById(R.id.btnBack);
+        if (backButton != null) {
+            backButton.setOnClickListener(v -> finish());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshTopics();
+    }
+
+    private void refreshTopics() {
+        List<Topic> topics = TopicRepository.getTopics();
+        for (Topic topic : topics) {
+            List<TopicWord> words = TopicRepository.getWordsForTopic(topic.id);
+            topic.total = words.size();
+            topic.learned = TopicProgressStore.getLearnedCount(this, topic.id, words);
+        }
+        adapter.updateTopics(topics);
     }
 }

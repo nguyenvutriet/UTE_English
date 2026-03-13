@@ -8,14 +8,26 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder>{
 
-    List<Topic> list;
+    interface OnTopicClickListener {
+        void onTopicClick(Topic topic);
+    }
 
-    public TopicAdapter(List<Topic> list){
-        this.list=list;
+    List<Topic> list;
+    private final OnTopicClickListener listener;
+
+    public TopicAdapter(List<Topic> list, OnTopicClickListener listener){
+        this.list = new ArrayList<>(list);
+        this.listener = listener;
+    }
+
+    public void updateTopics(List<Topic> topics) {
+        this.list = new ArrayList<>(topics);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -34,12 +46,16 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder>{
 
         holder.title.setText(t.name);
         holder.image.setImageResource(t.image);
-
         holder.progress.setText(t.learned+"/"+t.total);
 
-        int percent=(t.learned*100)/t.total;
-
+        int percent = t.total == 0 ? 0 : (t.learned * 100) / t.total;
         holder.percent.setText(percent+"%");
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onTopicClick(t);
+            }
+        });
     }
 
     @Override

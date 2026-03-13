@@ -201,6 +201,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/btnLearningMethod"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cách học ⓘ"
@@ -264,6 +265,7 @@
                     android:padding="8dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardExerciseHome"
                         android:layout_width="82dp"
                         android:layout_height="82dp"
                         app:cardBackgroundColor="#74C400"
@@ -360,6 +362,7 @@
                     android:padding="8dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardVocabulary"
                         android:layout_width="82dp"
                         android:layout_height="82dp"
                         app:cardBackgroundColor="#4FCBB8"
@@ -424,6 +427,7 @@
                     android:padding="8dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardDictionaryHome"
                         android:layout_width="82dp"
                         android:layout_height="82dp"
                         app:cardBackgroundColor="#6B83BC"

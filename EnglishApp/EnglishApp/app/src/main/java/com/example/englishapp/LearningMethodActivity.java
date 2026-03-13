@@ -1,9 +1,11 @@
 package com.example.englishapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,13 +21,30 @@ public class LearningMethodActivity extends AppCompatActivity {
 
         applyWindowInsets();
         setupBackButton();
+        setupSystemBack();
     }
 
     private void setupBackButton() {
         View backButton = findViewById(R.id.ivBack);
         if (backButton != null) {
-            backButton.setOnClickListener(v -> finish());
+            backButton.setOnClickListener(v -> navigateBackToHome());
         }
+    }
+
+    private void setupSystemBack() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                navigateBackToHome();
+            }
+        });
+    }
+
+    private void navigateBackToHome() {
+        Intent homeIntent = new Intent(this, HomeActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(homeIntent);
+        finish();
     }
 
     private void applyWindowInsets() {
@@ -39,4 +58,3 @@ public class LearningMethodActivity extends AppCompatActivity {
         }
     }
 }
-
