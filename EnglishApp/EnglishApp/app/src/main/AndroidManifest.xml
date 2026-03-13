@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,20 +15,19 @@
         android:theme="@style/Theme.EnglishApp">
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".BookActivity" />
         <activity android:name=".DictionaryActivity" />
         <activity android:name=".LearningMethodActivity" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".LearningGrammarMethodActivity" />
-        <activity android:name=".TopicActivity" />
+        <activity android:name=".TopicGrammarActivity" />
         <activity android:name=".ResultActivity" />
         <receiver android:name=".ReminderReceiver"
             android:exported="false"/>
-<!--        <activity android:name=".ReminderActivity"/>-->
-        <activity android:name=".TodoActivity" />
+        <activity android:name=".ReminderActivity"/>
         <activity
-            android:name=".ReminderActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

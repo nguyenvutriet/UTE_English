@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F9FF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- TOP BAR -->
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#1976D2"
+            app:title="Tài khoản"
+            app:titleTextColor="@android:color/white"
+            app:menu="@menu/menu_save"/>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <!-- Avatar -->
+
+                <FrameLayout
+                    android:layout_gravity="center"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp">
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/animal"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_avatar"
+                        android:clipToOutline="true"/>
+
+                    <ImageView
+                        android:src="@drawable/ic_edit"
+                        android:layout_gravity="bottom|end"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_edit_icon"
+                        android:padding="6dp"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:text="Nhấn vào ảnh để đổi avatar"
+                    android:textColor="#666"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <!-- Card thông tin -->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Tên"
+                            android:textStyle="bold"
+                            android:textColor="#1976D2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:text="Đăng nhập"
+                            android:textStyle="bold"
+                            android:textColor="#1976D2"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="banghohoang16102005@gmail.com"
+                            android:textSize="16sp"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- Action buttons -->
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Đăng xuất"
+                    android:textColor="#D32F2F"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:text="Xóa tài khoản"
+                    android:textColor="#D32F2F"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</com.google.android.material.appbar.AppBarLayout>
