@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F6D5D5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- Title -->
+    <TextView
+        android:text="🏆 Game Result"
+        android:textSize="32sp"
+        android:textColor="#D95151"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!-- Result Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="30dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="#FFD0D0">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Your Score"
+                android:textSize="20sp"
+                android:textColor="#888"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txtResult"
+                android:text="Score: 0"
+                android:textSize="36sp"
+                android:textColor="#E91E63"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!-- Leaderboard Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLeaderboard"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:text="Leaderboard"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+
+        app:cornerRadius="30dp"
+        app:icon="@drawable/ic_leaderboard"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+
+        android:backgroundTint="#F44336"
+        android:elevation="6dp"/>
+
+</LinearLayout>

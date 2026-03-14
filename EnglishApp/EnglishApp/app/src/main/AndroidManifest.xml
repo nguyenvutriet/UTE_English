@@ -32,8 +32,13 @@
         <activity android:name=".TestHistoryActivity" />
         <activity android:name=".ScoreStatsActivity" />
         <activity android:name=".ExercisePageActivity" />
+        <activity android:name=".game.DifficultyActivity" />
+        <activity android:name=".game.QuizActivity" />
+        <activity android:name=".game.ResultActivity" />
+        <activity android:name=".game.LeaderboardActivity" />
+<!--        <activity android:name=".game.StartGameActivity" />-->
         <activity
-            android:name=".HomeActivity"
+            android:name=".game.StartGameActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
