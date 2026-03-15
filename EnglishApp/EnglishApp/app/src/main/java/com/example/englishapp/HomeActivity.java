@@ -13,9 +13,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.englishapp.game.StartGameActivity;
+
 public class HomeActivity extends AppCompatActivity {
 
-    LinearLayout btnProfile, btnGrammar;
+    LinearLayout btnProfile, btnGrammar, cardGame;
     TextView btnLearningMethod;
     CardView cardVocabulary, cardExerciseHome, cardDictionaryHome;
 
@@ -31,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         cardVocabulary = findViewById(R.id.cardVocabulary);
         cardExerciseHome = findViewById(R.id.cardExerciseHome);
         cardDictionaryHome = findViewById(R.id.cardDictionaryHome);
+        cardGame = findViewById(R.id.cardGame);
 
         applyWindowInsets();
 
@@ -61,6 +64,12 @@ public class HomeActivity extends AppCompatActivity {
         if (cardDictionaryHome != null) {
             cardDictionaryHome.setOnClickListener(v -> {
                 startActivity(new Intent(HomeActivity.this, DictionaryActivity.class));
+            });
+        }
+
+        if (cardGame != null) {
+            cardGame.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, StartGameActivity.class));
             });
         }
     }
