@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home" android:icon="@drawable/ic_home" android:title="Trang chủ" />
+    <item android:id="@+id/nav_book" android:icon="@drawable/ic_book" android:title="Kho từ" />
+    <item android:id="@+id/nav_game" android:icon="@drawable/ic_game" android:title="Thi đấu" />
+    <item android:id="@+id/nav_pro" android:icon="@drawable/ic_crown" android:title="Pro" />
+    <item android:id="@+id/nav_user" android:icon="@drawable/ic_user" android:title="Tài khoản" />
+</menu>

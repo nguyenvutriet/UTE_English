@@ -13,11 +13,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.englishapp.activity.MainVideoActivity;
 import com.example.englishapp.game.StartGameActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
-    LinearLayout btnProfile, btnGrammar, cardGame;
+    LinearLayout btnProfile, btnGrammar, cardGame, btnVideo;
     LinearLayout cardPodcast, cardReader;
     TextView btnLearningMethod;
     CardView cardVocabulary, cardExerciseHome, cardDictionaryHome;
@@ -28,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_home);
 
+        // Ánh xạ các view
         btnProfile = findViewById(R.id.btnProfile);
         btnGrammar = findViewById(R.id.btnGrammar);
         btnLearningMethod = findViewById(R.id.btnLearningMethod);
@@ -37,24 +39,40 @@ public class HomeActivity extends AppCompatActivity {
         cardGame = findViewById(R.id.cardGame);
         cardPodcast = findViewById(R.id.cardPodcast);
         cardReader = findViewById(R.id.cardReader);
+        btnVideo = findViewById(R.id.btnVideo); // Fix: Thêm dòng này
 
         applyWindowInsets();
 
-        btnProfile.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
-        });
+        // Thiết lập sự kiện click
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            });
+        }
 
-        btnGrammar.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, TopicGrammarActivity.class));
-        });
+        if (btnGrammar != null) {
+            btnGrammar.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, TopicGrammarActivity.class));
+            });
+        }
 
-        btnLearningMethod.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, LearningMethodActivity.class));
-        });
+        if (btnLearningMethod != null) {
+            btnLearningMethod.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, LearningMethodActivity.class));
+            });
+        }
 
-        cardPodcast.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, PodcastActivity.class));
-        });
+        if (btnVideo != null) {
+            btnVideo.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, MainVideoActivity.class));
+            });
+        }
+
+        if (cardPodcast != null) {
+            cardPodcast.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, PodcastActivity.class));
+            });
+        }
 
         if (cardReader != null) {
             cardReader.setOnClickListener(v -> {

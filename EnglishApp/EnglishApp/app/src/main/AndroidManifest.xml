@@ -7,6 +7,8 @@
     <!-- quyền foreground service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!-- quyền media playback -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <application
@@ -46,6 +48,7 @@
         <activity android:name=".PodcastActivity"/>
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
+        <activity android:name=".activity.MainVideoActivity"/>
 
         <service
             android:name=".PodcastService"
