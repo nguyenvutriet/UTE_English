@@ -11,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="#FFFFFF"
         android:padding="16dp">
 
         <ImageView
@@ -34,7 +35,8 @@
 
     <!-- SEARCH -->
 
-    <EditText
+    <AutoCompleteTextView
+        android:id="@+id/searchBook"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:hint="Tìm kiếm"
@@ -75,6 +77,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/btnAllPopular"
                     android:text="Tất cả >"
                     android:textSize="14sp"
                     android:textColor="#888"
@@ -106,6 +109,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/btnAllAdventure"
                     android:text="Tất cả >"
                     android:textSize="14sp"
                     android:textColor="#888"
@@ -137,6 +141,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/btnAllChildren"
                     android:text="Tất cả >"
                     android:textSize="14sp"
                     android:textColor="#888"

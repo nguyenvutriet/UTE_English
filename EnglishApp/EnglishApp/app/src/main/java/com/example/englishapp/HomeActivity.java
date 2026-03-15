@@ -18,6 +18,7 @@ import com.example.englishapp.game.StartGameActivity;
 public class HomeActivity extends AppCompatActivity {
 
     LinearLayout btnProfile, btnGrammar, cardGame;
+    LinearLayout cardPodcast, cardReader;
     TextView btnLearningMethod;
     CardView cardVocabulary, cardExerciseHome, cardDictionaryHome;
 
@@ -34,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         cardExerciseHome = findViewById(R.id.cardExerciseHome);
         cardDictionaryHome = findViewById(R.id.cardDictionaryHome);
         cardGame = findViewById(R.id.cardGame);
+        cardPodcast = findViewById(R.id.cardPodcast);
+        cardReader = findViewById(R.id.cardReader);
 
         applyWindowInsets();
 
@@ -48,6 +51,16 @@ public class HomeActivity extends AppCompatActivity {
         btnLearningMethod.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, LearningMethodActivity.class));
         });
+
+        cardPodcast.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, PodcastActivity.class));
+        });
+
+        if (cardReader != null) {
+            cardReader.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, BookActivity.class));
+            });
+        }
 
         if (cardVocabulary != null) {
             cardVocabulary.setOnClickListener(v -> {

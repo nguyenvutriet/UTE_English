@@ -25,32 +25,33 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
         this.context = context;
         this.list = list;
 
-        // Khởi tạo TextToSpeech
         tts = new TextToSpeech(context, status -> {
 
             if(status == TextToSpeech.SUCCESS){
-
                 tts.setLanguage(Locale.US);
-                tts.setSpeechRate(0.75f); // tốc độ đọc
-
+                tts.setSpeechRate(0.75f);
             }
 
         });
 
     }
 
+    public void updateList(List<Word> newList){
+        this.list = newList;
+        notifyDataSetChanged();
+    }
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
 
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_word,parent,false);
 
         return new ViewHolder(view);
-
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder,int position){
 
         Word w = list.get(position);
 
@@ -60,32 +61,28 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
         holder.us.setText(w.us);
         holder.meaning.setText(w.meaning);
 
-        // 🔊 UK pronunciation
         holder.speakUk.setOnClickListener(v -> {
 
             tts.setLanguage(Locale.UK);
-            tts.setSpeechRate(0.75f);
-            tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null);
+            tts.speak(w.word,TextToSpeech.QUEUE_FLUSH,null,null);
 
         });
 
-        // 🔊 US pronunciation
         holder.speakUs.setOnClickListener(v -> {
 
             tts.setLanguage(Locale.US);
-            tts.setSpeechRate(0.75f);
-            tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null);
+            tts.speak(w.word,TextToSpeech.QUEUE_FLUSH,null,null);
 
         });
 
-        // ⭐ Lưu từ yêu thích
-        SharedPreferences pref = context.getSharedPreferences("fav", Context.MODE_PRIVATE);
+        SharedPreferences pref =
+                context.getSharedPreferences("fav",Context.MODE_PRIVATE);
 
         boolean saved = pref.getBoolean(w.word,false);
 
         holder.star.setImageResource(saved ?
-                android.R.drawable.btn_star_big_on
-                : android.R.drawable.btn_star_big_off);
+                android.R.drawable.btn_star_big_on :
+                android.R.drawable.btn_star_big_off);
 
         holder.star.setOnClickListener(v -> {
 
@@ -124,7 +121,6 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
             speakUk = itemView.findViewById(R.id.btnSpeakUk);
             speakUs = itemView.findViewById(R.id.btnSpeakUs);
             star = itemView.findViewById(R.id.btnStar);
-
         }
     }
 }
