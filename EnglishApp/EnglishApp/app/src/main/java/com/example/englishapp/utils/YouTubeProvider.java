@@ -15,7 +15,7 @@ import java.util.List;
 
 public class YouTubeProvider {
 
-    private static final String API_KEY = "AIzaSyBcSYdCFFOseGM3YeKg8RNVR3te2-uNG_I";
+    private static final String API_KEY = "AIzaSyBDeiGiWt2LU7NlyUYPh4PTTGaIN-W4N6o";
 
     public interface Callback {
         void onSuccess(List<Video> videos);

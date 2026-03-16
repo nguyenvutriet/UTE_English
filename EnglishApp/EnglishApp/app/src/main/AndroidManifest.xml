@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishApp">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".HomeActivity" />
 <!--        <activity android:name=".HomeActivity" />-->
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileActivity" />
@@ -49,6 +49,9 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
         <activity android:name=".activity.MainVideoActivity"/>
+        <activity android:name=".activity.VideoPlayerActivity"/>
+        <activity android:name=".activity.ViewAllVideosActivity"/>
+
 
         <service
             android:name=".PodcastService"
@@ -56,7 +59,7 @@
             android:foregroundServiceType="mediaPlayback"/>
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
