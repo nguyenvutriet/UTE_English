@@ -1,12 +1,15 @@
 package com.example.englishapp.utils;
 
 
+import android.util.Log;
+
 import com.example.englishapp.model.Video;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -49,9 +52,10 @@ public class YouTubeProvider {
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
 
+                InputStream is = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 BufferedReader reader =
                         new BufferedReader(
-                                new InputStreamReader(conn.getInputStream()));
+                                new InputStreamReader(is));
 
                 StringBuilder json = new StringBuilder();
 
@@ -60,6 +64,11 @@ public class YouTubeProvider {
                 while ((line = reader.readLine()) != null) {
 
                     json.append(line);
+                }
+
+                if (conn.getResponseCode() >= 400) {
+                    Log.e("YouTubeProvider", "Error response: " + json.toString());
+                    throw new Exception("HTTP error code: " + conn.getResponseCode());
                 }
 
                 JSONObject root =
@@ -117,9 +126,10 @@ public class YouTubeProvider {
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
 
+                InputStream is = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 BufferedReader reader =
                         new BufferedReader(
-                                new InputStreamReader(conn.getInputStream()));
+                                new InputStreamReader(is));
 
                 StringBuilder json = new StringBuilder();
 
@@ -128,6 +138,11 @@ public class YouTubeProvider {
                 while ((line = reader.readLine()) != null) {
 
                     json.append(line);
+                }
+
+                if (conn.getResponseCode() >= 400) {
+                    Log.e("YouTubeProvider", "Error response: " + json.toString());
+                    throw new Exception("HTTP error code: " + conn.getResponseCode());
                 }
 
                 JSONObject root =

@@ -32,6 +32,7 @@
         <activity android:name=".TopicGrammarActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".TopicActivity" />
+        <activity android:name=".TodoActivity" />
         <receiver android:name=".ReminderReceiver" />
         <activity android:name=".ReminderActivity"/>
         <activity android:name=".TopicDetailActivity" />
