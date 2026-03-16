@@ -49,6 +49,8 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
         <activity android:name=".activity.MainVideoActivity"/>
+        <activity android:name=".activity.ViewAllVideosActivity"/>
+        <activity android:name=".activity.VideoPlayerActivity"/>
 
         <service
             android:name=".PodcastService"
@@ -65,6 +67,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>
