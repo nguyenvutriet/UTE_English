@@ -1,15 +1,12 @@
 package com.example.englishapp.utils;
 
 
-import android.util.Log;
-
 import com.example.englishapp.model.Video;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,7 +15,7 @@ import java.util.List;
 
 public class YouTubeProvider {
 
-    private static final String API_KEY = "AIzaSyBcSYdCFFOseGM3YeKg8RNVR3te2-uNG_I";
+    private static final String API_KEY = "AIzaSyBDeiGiWt2LU7NlyUYPh4PTTGaIN-W4N6o";
 
     public interface Callback {
         void onSuccess(List<Video> videos);
@@ -52,10 +49,9 @@ public class YouTubeProvider {
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
 
-                InputStream is = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 BufferedReader reader =
                         new BufferedReader(
-                                new InputStreamReader(is));
+                                new InputStreamReader(conn.getInputStream()));
 
                 StringBuilder json = new StringBuilder();
 
@@ -64,11 +60,6 @@ public class YouTubeProvider {
                 while ((line = reader.readLine()) != null) {
 
                     json.append(line);
-                }
-
-                if (conn.getResponseCode() >= 400) {
-                    Log.e("YouTubeProvider", "Error response: " + json.toString());
-                    throw new Exception("HTTP error code: " + conn.getResponseCode());
                 }
 
                 JSONObject root =
@@ -108,7 +99,6 @@ public class YouTubeProvider {
 
         }).start();
     }
-
     public static void fetchChannelIcon(String channelId, ChannelCallback callback) {
 
         new Thread(() -> {
@@ -126,10 +116,9 @@ public class YouTubeProvider {
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
 
-                InputStream is = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 BufferedReader reader =
                         new BufferedReader(
-                                new InputStreamReader(is));
+                                new InputStreamReader(conn.getInputStream()));
 
                 StringBuilder json = new StringBuilder();
 
@@ -138,11 +127,6 @@ public class YouTubeProvider {
                 while ((line = reader.readLine()) != null) {
 
                     json.append(line);
-                }
-
-                if (conn.getResponseCode() >= 400) {
-                    Log.e("YouTubeProvider", "Error response: " + json.toString());
-                    throw new Exception("HTTP error code: " + conn.getResponseCode());
                 }
 
                 JSONObject root =
