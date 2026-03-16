@@ -123,7 +123,14 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
-                <!-- Action buttons -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReminder"
+                    android:text="Tạo nhắc nhở học"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:iconPadding="8dp"
+                    app:backgroundTint="#1976D2"
+                    android:textColor="@android:color/white"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:text="Đăng xuất"
