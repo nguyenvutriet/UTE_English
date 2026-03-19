@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
         findViewById(R.id.tvLogin).setOnClickListener(v -> finish());
         findViewById(R.id.btnRegister).setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
