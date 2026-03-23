@@ -49,6 +49,8 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
         <activity android:name=".activity.MainVideoActivity"/>
+        <activity android:name=".activity.VideoPlayerActivity"/>
+        <activity android:name=".activity.ViewAllVideosActivity"/>
 
         <service
             android:name=".PodcastService"
