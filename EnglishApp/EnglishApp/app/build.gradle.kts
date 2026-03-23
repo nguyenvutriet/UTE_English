@@ -4,9 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.englishapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.englishapp"
@@ -47,6 +45,8 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("org.json:json:20210307")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.vision.common)
+    implementation(libs.play.services.mlkit.text.recognition.common)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
@@ -54,4 +54,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.media:media:1.7.0")
+    implementation("com.google.mlkit:text-recognition:16.0.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.google.android.material:material:1.11.0")
 }

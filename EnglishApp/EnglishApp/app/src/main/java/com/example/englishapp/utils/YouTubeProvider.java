@@ -99,7 +99,6 @@ public class YouTubeProvider {
 
         }).start();
     }
-
     public static void fetchChannelIcon(String channelId, ChannelCallback callback) {
 
         new Thread(() -> {

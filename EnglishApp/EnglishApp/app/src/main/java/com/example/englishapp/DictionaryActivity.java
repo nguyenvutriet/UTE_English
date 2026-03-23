@@ -16,7 +16,9 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
 public class DictionaryActivity extends AppCompatActivity {
 
     RecyclerView recycler;
@@ -40,6 +42,13 @@ public class DictionaryActivity extends AppCompatActivity {
         adapter = new DictionaryAdapter(this, filteredList);
         recycler.setAdapter(adapter);
 
+        ImageView btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(DictionaryActivity.this, HomeActivity.class));
+            finish();
+        });
+        
         EditText search = findViewById(R.id.edtSearch);
 
         // 🔎 search khi đang gõ
