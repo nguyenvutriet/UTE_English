@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6B9FD9"
+    android:background="#F6F6F6"
     tools:context=".DoingTestActivity">
 
     <!-- Header -->
@@ -25,7 +25,7 @@
             android:layout_height="48dp"
             android:padding="12dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#FFFFFF"
+            app:tint="#7A7A7A"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"/>
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:text="Reading Test"
-            android:textColor="#FFFFFF"
+            android:textColor="#1A3A5C"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -101,6 +101,36 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="16dp" />
+
+                <LinearLayout
+                    android:id="@+id/questionProgressLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/progressQuestionBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_weight="1"
+                        android:max="10"
+                        android:progress="0"
+                        android:progressTint="#5B8FD9" />
+
+                    <TextView
+                        android:id="@+id/txtQuestionProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="0/10"
+                        android:textColor="#5B8FD9"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/questionsContainer"

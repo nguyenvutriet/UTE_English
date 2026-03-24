@@ -54,4 +54,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.media:media:1.7.0")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }

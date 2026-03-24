@@ -25,6 +25,12 @@ public class ScoreStatsActivity extends AppCompatActivity {
         calculateAndDisplayStats();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        calculateAndDisplayStats();
+    }
+
     private void calculateAndDisplayStats() {
         DatabaseHelper db = new DatabaseHelper(this);
         List<DatabaseHelper.TestHistoryRecord> records = db.getAllHistory();
@@ -48,8 +54,8 @@ public class ScoreStatsActivity extends AppCompatActivity {
         txtTotalQuestions.setText(String.valueOf(totalQuestions));
 
         if (totalQuestions > 0) {
-            int averageAccuracy = (int) (((double) totalCorrect / totalQuestions) * 100);
-            txtAverageAccuracy.setText(averageAccuracy + "%");
+            long roundedPercent = Math.round((totalCorrect * 100.0) / totalQuestions);
+            txtAverageAccuracy.setText(roundedPercent + "%");
         } else {
             txtAverageAccuracy.setText("0%");
         }

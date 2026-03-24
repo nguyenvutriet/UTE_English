@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6B9FD9">
+    android:background="#F6F6F6">
 
     <!-- Back button -->
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:padding="12dp"
         android:src="@drawable/ic_arrow_back"
-        app:tint="#FFFFFF"
+        app:tint="#7A7A7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

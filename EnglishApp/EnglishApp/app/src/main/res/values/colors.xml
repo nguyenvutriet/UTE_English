@@ -6,4 +6,7 @@
     <color name="blue_link">#4169E1</color>
     <color name="text_gray">#6B7280</color>
     <color name="input_bg">#F4F4F5</color>
+    <color name="success_green">#299D2D</color>
+    <color name="error_red">#D32F2F</color>
+    <color name="text_dark">#1A3A5C</color>
 </resources>

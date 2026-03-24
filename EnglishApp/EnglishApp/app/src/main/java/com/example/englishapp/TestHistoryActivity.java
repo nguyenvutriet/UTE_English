@@ -28,12 +28,20 @@ public class TestHistoryActivity extends AppCompatActivity {
         loadHistory();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadHistory();
+    }
+
     private void loadHistory() {
         DatabaseHelper db = new DatabaseHelper(this);
         List<DatabaseHelper.TestHistoryRecord> records = db.getAllHistory();
 
         LinearLayout historyContainer = findViewById(R.id.historyContainer);
         TextView txtEmpty = findViewById(R.id.txtEmpty);
+
+        historyContainer.removeAllViews();
 
         if (records.isEmpty()) {
             txtEmpty.setVisibility(View.VISIBLE);

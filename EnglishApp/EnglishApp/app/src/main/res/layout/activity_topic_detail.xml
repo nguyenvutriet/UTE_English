@@ -300,10 +300,10 @@
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="6dp"
                     android:layout_weight="1.25"
-                    android:backgroundTint="#B8F0C5"
-                    android:text="Đánh dấu đã học"
+                    android:backgroundTint="#E5E7EB"
+                    android:text="Trạng thái nhớ"
                     android:textAllCaps="false"
-                    android:textColor="#166534" />
+                    android:textColor="#374151" />
 
                 <Button
                     android:id="@+id/btnNextCard"

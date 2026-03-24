@@ -29,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_home);
 
+        VocabReviewReminderScheduler.scheduleDaily(this);
+
         // Ánh xạ các view
         btnProfile = findViewById(R.id.btnProfile);
         btnGrammar = findViewById(R.id.btnGrammar);

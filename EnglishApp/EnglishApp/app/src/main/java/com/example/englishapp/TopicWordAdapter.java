@@ -17,6 +17,7 @@ public class TopicWordAdapter extends RecyclerView.Adapter<TopicWordAdapter.View
 
     interface Listener {
         void onWordSelected(int position);
+
         void onLearnedStateChanged();
     }
 
@@ -51,7 +52,7 @@ public class TopicWordAdapter extends RecyclerView.Adapter<TopicWordAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TopicWord word = words.get(position);
-        boolean learned = TopicProgressStore.isLearned(context, word);
+        TopicProgressStore.WordProgress progress = TopicProgressStore.getProgress(context, word);
         boolean selected = position == selectedIndex;
 
         holder.cardView.setCardBackgroundColor(Color.parseColor(selected ? "#EEF4FF" : "#FFFFFF"));
@@ -61,21 +62,14 @@ public class TopicWordAdapter extends RecyclerView.Adapter<TopicWordAdapter.View
         holder.meaningText.setText(word.meaning);
         holder.ukText.setText(word.uk);
         holder.usText.setText(word.us);
-        holder.learnedButton.setText(learned ? "Đã học" : "Đánh dấu");
-        holder.learnedButton.setBackgroundResource(learned ? R.drawable.bg_topic_badge_success : R.drawable.bg_topic_badge_neutral);
-        holder.learnedButton.setTextColor(Color.parseColor(learned ? "#167C3B" : "#5F6B7A"));
+        holder.learnedButton.setText("Level " + progress.level);
+        holder.learnedButton.setBackgroundResource(R.drawable.bg_topic_badge_neutral);
+        holder.learnedButton.setTextColor(Color.parseColor("#5F6B7A"));
 
         holder.speakUk.setOnClickListener(v -> pronunciationHelper.speakUk(word.word));
         holder.speakUs.setOnClickListener(v -> pronunciationHelper.speakUs(word.word));
 
-        holder.learnedButton.setOnClickListener(v -> {
-            TopicProgressStore.setLearned(context, word, !learned);
-            notifyItemChanged(position);
-            if (listener != null) {
-                listener.onLearnedStateChanged();
-            }
-        });
-
+        holder.learnedButton.setOnClickListener(null);
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 int adapterPosition = holder.getBindingAdapterPosition();
@@ -119,4 +113,3 @@ public class TopicWordAdapter extends RecyclerView.Adapter<TopicWordAdapter.View
         }
     }
 }
-

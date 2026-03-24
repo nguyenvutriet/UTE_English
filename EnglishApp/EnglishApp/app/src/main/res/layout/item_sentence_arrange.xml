@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flex="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="24dp"
+    android:background="@drawable/bg_question_item"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtQuestionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question 1/10"
+        android:textColor="#5B8FD9"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/txtQuestionContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp các từ sau thành câu đúng:"
+        android:textColor="#1A3A5C"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Target box: Nơi người dùng sắp xếp từ -->
+    <LinearLayout
+        android:id="@+id/targetBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_target_box"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="60dp">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/droppedWordsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="8dp"
+            flex:flexWrap="wrap"
+            flex:justifyContent="flex_start" />
+
+        <TextView
+            android:id="@+id/txtPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bấm vào từ bên dưới để sắp xếp"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <!-- Source words: Các từ để chọn -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/sourceWordsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        flex:flexWrap="wrap"
+        flex:justifyContent="center" />
+
+    <!-- Result feedback -->
+    <LinearLayout
+        android:id="@+id/resultLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/txtResultStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Correct!"
+            android:textColor="#299D2D"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/txtExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giải thích"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

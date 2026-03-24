@@ -33,13 +33,19 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".TopicActivity" />
         <receiver android:name=".ReminderReceiver" />
+        <receiver
+            android:name=".VocabReviewReminderReceiver"
+            android:exported="false" />
         <activity android:name=".ReminderActivity"/>
         <activity android:name=".TopicDetailActivity" />
+        <activity android:name=".MemoryStudyActivity" />
         <activity android:name=".PickTestActivity" />
         <activity android:name=".DoingTestActivity"/>
         <activity android:name=".TestHistoryActivity" />
         <activity android:name=".ScoreStatsActivity" />
         <activity android:name=".ExercisePageActivity" />
+        <activity android:name=".activity.ReadingPracticeActivity" />
+        <activity android:name=".activity.ListeningPracticeActivity" />
         <activity android:name=".game.DifficultyActivity" />
         <activity android:name=".game.QuizActivity" />
         <activity android:name=".game.ResultActivity" />
@@ -51,6 +57,14 @@
         <activity android:name=".activity.MainVideoActivity"/>
         <activity android:name=".activity.ViewAllVideosActivity"/>
         <activity android:name=".activity.VideoPlayerActivity"/>
+        <activity android:name=".activity.SentenceArrangeActivity" />
+        <activity android:name=".activity.PictureDescriptionActivity" />
+        <activity android:name=".activity.PictureDescriptionResultActivity" />
+        <activity android:name=".activity.PictureDescriptionTestSelectActivity" />
+        <activity android:name=".activity.FillInTheBlanksActivity" />
+        <activity android:name=".activity.FillInTheBlanksResultActivity" />
+        <activity android:name=".activity.ListeningPassageActivity" />
+        <activity android:name=".activity.ListeningPassageTestSelectActivity" />
 
         <service
             android:name=".PodcastService"

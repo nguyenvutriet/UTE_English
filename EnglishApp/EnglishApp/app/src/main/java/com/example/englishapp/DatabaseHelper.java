@@ -32,6 +32,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_DATE_TAKEN + " TEXT" +
                     ")";
 
+    private static final String VALID_HISTORY_WHERE =
+            COLUMN_TOTAL_QUESTIONS + " > 0 AND " +
+                    COLUMN_SCORE + " >= 0 AND " +
+                    COLUMN_SCORE + " <= " + COLUMN_TOTAL_QUESTIONS;
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -49,13 +54,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // --- Insert a test result ---
     public long insertTestResult(int testId, String testTitle, int score, int totalQuestions, String dateTaken) {
+        if (totalQuestions <= 0) {
+            return -1;
+        }
+
+        int safeScore = Math.max(0, Math.min(score, totalQuestions));
+        String safeTitle = (testTitle == null || testTitle.trim().isEmpty()) ? "Bài kiểm tra" : testTitle.trim();
+        String safeDate = (dateTaken == null || dateTaken.trim().isEmpty()) ?
+                new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault())
+                        .format(new java.util.Date())
+                : dateTaken;
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TEST_ID, testId);
-        values.put(COLUMN_TEST_TITLE, testTitle);
-        values.put(COLUMN_SCORE, score);
+        values.put(COLUMN_TEST_TITLE, safeTitle);
+        values.put(COLUMN_SCORE, safeScore);
         values.put(COLUMN_TOTAL_QUESTIONS, totalQuestions);
-        values.put(COLUMN_DATE_TAKEN, dateTaken);
+        values.put(COLUMN_DATE_TAKEN, safeDate);
 
         long id = db.insert(TABLE_HISTORY, null, values);
         db.close();
@@ -66,7 +82,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<TestHistoryRecord> getAllHistory() {
         List<TestHistoryRecord> records = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_HISTORY + " ORDER BY " + COLUMN_ID + " DESC";
+        String query = "SELECT * FROM " + TABLE_HISTORY +
+                " WHERE " + VALID_HISTORY_WHERE +
+                " ORDER BY " + COLUMN_ID + " DESC";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {

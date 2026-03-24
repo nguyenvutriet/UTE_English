@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6B9FD9"
+    android:background="#F6F6F6"
     tools:context=".TestHistoryActivity">
 
     <!-- Header -->
@@ -25,7 +25,7 @@
             android:layout_height="48dp"
             android:padding="12dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#FFFFFF"
+            app:tint="#7A7A7A"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"/>
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:text="Lịch sử làm bài"
-            android:textColor="#FFFFFF"
+            android:textColor="#1A3A5C"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>

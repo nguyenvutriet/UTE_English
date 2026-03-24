@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="20dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_topic_badge_neutral"
+    android:backgroundTint="#222222"
+    android:layout_marginBottom="12dp">
+
+    <TextView
+        android:id="@+id/tvResultWord"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Word"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvResultInitialLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lv 0"
+        android:textColor="#AAAAAA"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginHorizontal="10dp"
+        android:src="@drawable/ic_forward"
+        app:tint="#8AB4F8" />
+
+    <TextView
+        android:id="@+id/tvResultFinalLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lv 1"
+        android:textColor="#4CAF50"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+</LinearLayout>

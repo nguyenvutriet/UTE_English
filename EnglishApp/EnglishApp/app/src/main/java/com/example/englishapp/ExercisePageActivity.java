@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.englishapp.activity.ListeningPracticeActivity;
+import com.example.englishapp.activity.ReadingPracticeActivity;
+
 public class ExercisePageActivity extends AppCompatActivity {
 
     @Override
@@ -32,17 +35,25 @@ public class ExercisePageActivity extends AppCompatActivity {
     }
 
     private void setupCardClickListeners() {
-        CardView cardExercise1 = findViewById(R.id.cardExercise1);
+        CardView cardReadingPractice = findViewById(R.id.cardReadingPractice);
+        CardView cardListeningPractice = findViewById(R.id.cardListeningPractice);
         CardView cardExercise2 = findViewById(R.id.cardExercise2);
         CardView cardExercise3 = findViewById(R.id.cardExercise3);
 
-        if (cardExercise1 != null) {
-            cardExercise1.setOnClickListener(v -> {
-                Intent intent = new Intent(ExercisePageActivity.this, PickTestActivity.class);
+        if (cardReadingPractice != null) {
+            cardReadingPractice.setOnClickListener(v -> {
+                Intent intent = new Intent(ExercisePageActivity.this, ReadingPracticeActivity.class);
                 startActivity(intent);
             });
         }
-        
+
+        if (cardListeningPractice != null) {
+            cardListeningPractice.setOnClickListener(v -> {
+                Intent intent = new Intent(ExercisePageActivity.this, ListeningPracticeActivity.class);
+                startActivity(intent);
+            });
+        }
+
         if (cardExercise2 != null) {
             cardExercise2.setOnClickListener(v -> {
                 Intent intent = new Intent(ExercisePageActivity.this, TestHistoryActivity.class);

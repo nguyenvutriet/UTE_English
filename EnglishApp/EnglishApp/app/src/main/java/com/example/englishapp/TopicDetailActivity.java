@@ -1,5 +1,6 @@
 package com.example.englishapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +23,8 @@ public class TopicDetailActivity extends AppCompatActivity {
     private TopicWordAdapter adapter;
     private int currentIndex;
     private boolean showingBack;
+    private boolean isFlipping;
 
-    private ImageView topicHeaderImage;
-    private TextView topicHeaderTitle;
     private TextView topicHeaderProgress;
     private TextView flashcardIndex;
     private ImageView flashcardImage;
@@ -39,6 +39,7 @@ public class TopicDetailActivity extends AppCompatActivity {
     private View flashcardUkRow;
     private View flashcardUsRow;
     private Button toggleLearnedButton;
+    private View flashcardCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +73,6 @@ public class TopicDetailActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        topicHeaderImage = findViewById(R.id.topicHeaderImage);
-        topicHeaderTitle = findViewById(R.id.topicHeaderTitle);
         topicHeaderProgress = findViewById(R.id.topicHeaderProgress);
         flashcardIndex = findViewById(R.id.flashcardIndex);
         flashcardImage = findViewById(R.id.flashcardImage);
@@ -88,9 +87,15 @@ public class TopicDetailActivity extends AppCompatActivity {
         flashcardUkRow = findViewById(R.id.flashcardUkRow);
         flashcardUsRow = findViewById(R.id.flashcardUsRow);
         toggleLearnedButton = findViewById(R.id.btnToggleLearned);
+        flashcardCard = findViewById(R.id.flashcardCard);
+
+        float scale = getResources().getDisplayMetrics().density;
+        flashcardCard.setCameraDistance(12000f * scale);
     }
 
     private void setupHeader() {
+        ImageView topicHeaderImage = findViewById(R.id.topicHeaderImage);
+        TextView topicHeaderTitle = findViewById(R.id.topicHeaderTitle);
         topicHeaderImage.setImageResource(topic.image);
         topicHeaderTitle.setText(topic.name);
     }
@@ -105,6 +110,7 @@ public class TopicDetailActivity extends AppCompatActivity {
             public void onWordSelected(int position) {
                 currentIndex = position;
                 showingBack = false;
+                resetFlipState();
                 updateFlashcard();
             }
 
@@ -123,17 +129,25 @@ public class TopicDetailActivity extends AppCompatActivity {
             backButton.setOnClickListener(v -> finish());
         }
 
-        View flashcardCard = findViewById(R.id.flashcardCard);
-        flashcardCard.setOnClickListener(v -> {
-            showingBack = !showingBack;
-            updateFlashcard();
-        });
+//        View openMemoryStudy = findViewById(R.id.btnOpenMemoryStudy);
+//        if (openMemoryStudy != null) {
+//            openMemoryStudy.setOnClickListener(v -> {
+//                Intent intent = new Intent(this, MemoryStudyActivity.class);
+//                intent.putExtra(EXTRA_TOPIC_ID, topic.id);
+//                startActivity(intent);
+//            });
+//        }
+
+        flashcardCard.setOnClickListener(v -> animateFlashcardFlip());
 
         findViewById(R.id.btnPreviousCard).setOnClickListener(v -> moveCard(-1));
         findViewById(R.id.btnNextCard).setOnClickListener(v -> moveCard(1));
         findViewById(R.id.btnFlashcardSpeakUk).setOnClickListener(v -> pronunciationHelper.speakUk(getCurrentWord().word));
         findViewById(R.id.btnFlashcardSpeakUs).setOnClickListener(v -> pronunciationHelper.speakUs(getCurrentWord().word));
-        toggleLearnedButton.setOnClickListener(v -> toggleCurrentLearnedState());
+
+        if (toggleLearnedButton != null) {
+            toggleLearnedButton.setEnabled(false);
+        }
     }
 
     private void moveCard(int direction) {
@@ -143,15 +157,39 @@ public class TopicDetailActivity extends AppCompatActivity {
 
         currentIndex = (currentIndex + direction + words.size()) % words.size();
         showingBack = false;
+        resetFlipState();
         updateFlashcard();
     }
 
-    private void toggleCurrentLearnedState() {
-        TopicWord currentWord = getCurrentWord();
-        boolean learned = TopicProgressStore.isLearned(this, currentWord);
-        TopicProgressStore.setLearned(this, currentWord, !learned);
-        updateProgress();
-        updateFlashcard();
+    private void animateFlashcardFlip() {
+        if (isFlipping || flashcardCard == null) {
+            return;
+        }
+
+        isFlipping = true;
+        flashcardCard.animate()
+                .rotationY(90f)
+                .setDuration(140)
+                .withEndAction(() -> {
+                    showingBack = !showingBack;
+                    updateFlashcard();
+
+                    flashcardCard.setRotationY(-90f);
+                    flashcardCard.animate()
+                            .rotationY(0f)
+                            .setDuration(140)
+                            .withEndAction(() -> isFlipping = false)
+                            .start();
+                })
+                .start();
+    }
+
+    private void resetFlipState() {
+        isFlipping = false;
+        if (flashcardCard != null) {
+            flashcardCard.animate().cancel();
+            flashcardCard.setRotationY(0f);
+        }
     }
 
     private void updateProgress() {
@@ -163,7 +201,7 @@ public class TopicDetailActivity extends AppCompatActivity {
 
     private void updateFlashcard() {
         TopicWord currentWord = getCurrentWord();
-        boolean learned = TopicProgressStore.isLearned(this, currentWord);
+        TopicProgressStore.WordProgress progress = TopicProgressStore.getProgress(this, currentWord);
 
         adapter.setSelectedIndex(currentIndex);
         flashcardIndex.setText("Thẻ " + (currentIndex + 1) + "/" + words.size());
@@ -174,7 +212,14 @@ public class TopicDetailActivity extends AppCompatActivity {
         flashcardExample.setText("Ví dụ: " + currentWord.example);
         flashcardUk.setText(currentWord.uk);
         flashcardUs.setText(currentWord.us);
-        toggleLearnedButton.setText(learned ? "Bỏ đánh dấu" : "Đánh dấu đã học");
+        if (toggleLearnedButton != null) {
+            toggleLearnedButton.setText("Level " + progress.level);
+        }
+
+        int frontVisibility = showingBack ? View.GONE : View.VISIBLE;
+        flashcardImage.setVisibility(frontVisibility);
+        flashcardWord.setVisibility(frontVisibility);
+        flashcardType.setVisibility(frontVisibility);
 
         int detailVisibility = showingBack ? View.VISIBLE : View.GONE;
         flashcardMeaning.setVisibility(detailVisibility);
@@ -195,4 +240,3 @@ public class TopicDetailActivity extends AppCompatActivity {
         return words.get(currentIndex);
     }
 }
-

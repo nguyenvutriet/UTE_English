@@ -2,14 +2,14 @@ package com.example.englishapp;
 
 public class TopicWord {
 
-    final String topicId;
-    final String word;
-    final String type;
-    final String uk;
-    final String us;
-    final String meaning;
-    final String example;
-    final int imageRes;
+    public final String topicId;
+    public final String word;
+    public final String type;
+    public final String uk;
+    public final String us;
+    public final String meaning;
+    public final String example;
+    public final int imageRes;
 
     public TopicWord(String topicId,
                      String word,
