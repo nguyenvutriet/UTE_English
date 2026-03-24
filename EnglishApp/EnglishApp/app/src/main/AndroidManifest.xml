@@ -12,6 +12,7 @@
     <!-- quyền media playback -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <application
+        android:largeHeap="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,8 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishApp">
-        <activity android:name=".MainActivity" />
-<!--        <activity android:name=".HomeActivity" />-->
+        <activity android:name=".HomeActivity" />
+        <!--        <activity android:name=".HomeActivity" />-->
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".BookActivity" />
@@ -32,6 +33,7 @@
         <activity android:name=".TopicGrammarActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".TopicActivity" />
+        <activity android:name=".TodoActivity" />
         <receiver android:name=".ReminderReceiver" />
         <receiver
             android:name=".VocabReviewReminderReceiver"
@@ -66,13 +68,17 @@
         <activity android:name=".activity.ListeningPassageActivity" />
         <activity android:name=".activity.ListeningPassageTestSelectActivity" />
 
+        <activity android:name=".ui.GenerateActivity" />
+        <activity android:name=".ui.QuizActivity" />
+        <activity android:name=".ui.HistoryActivity" />
+
         <service
             android:name=".PodcastService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback"/>
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,5 +87,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

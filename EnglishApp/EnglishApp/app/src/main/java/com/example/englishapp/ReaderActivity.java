@@ -42,7 +42,9 @@ public class ReaderActivity extends AppCompatActivity {
     ScrollView scrollView;
     SharedPreferences readerPref;
 
+    ImageView btnSpeakTop;
 
+    String englishTextOnly = "";
 
     int currentChapter = 1;
     boolean isLoadingNext = false;
@@ -86,6 +88,7 @@ public class ReaderActivity extends AppCompatActivity {
         btnDay = findViewById(R.id.btnDay);
         btnNight = findViewById(R.id.btnNight);
         btnMenu.setOnClickListener(v -> showChapterMenu());
+        btnSpeakTop = findViewById(R.id.btnSpeakTop);
 
         // ⭐ NHẬN SÁCH TỪ BOOKADAPTER
         String bookFile = getIntent().getStringExtra("book");
@@ -169,6 +172,16 @@ public class ReaderActivity extends AppCompatActivity {
 
             txtEnglish.setTextColor(Color.WHITE);
             txtVietnamese.setTextColor(Color.LTGRAY);
+
+        });
+
+        btnSpeakTop.setOnClickListener(v -> {
+
+            if (tts.isSpeaking()) {
+                tts.stop(); // bấm lại → dừng
+            } else {
+                speakFullArticle(); // đọc toàn bài
+            }
 
         });
 
@@ -338,6 +351,7 @@ public class ReaderActivity extends AppCompatActivity {
             // ===== BUILD TEXT =====
 
             String fullText = "";
+            englishTextOnly = ""; // reset
 
             for(int i=0;i<array.length();i++){
 
@@ -346,8 +360,12 @@ public class ReaderActivity extends AppCompatActivity {
                 String en = line.getString("en");
                 String vi = line.getString("vi");
 
+                // HIỂN THỊ (giữ nguyên)
                 fullText += "    " + en + "\n\n";
                 fullText += "    " + vi + "\n\n";
+
+                // 👇 CHỈ LƯU TIẾNG ANH
+                englishTextOnly += en + ". ";
             }
 
             spannableText = new SpannableString(fullText);
@@ -509,6 +527,7 @@ public class ReaderActivity extends AppCompatActivity {
 
             speakUk.setOnClickListener(v->{
 
+                tts.setSpeechRate(0.8f);
                 tts.setLanguage(Locale.UK);
 
                 tts.speak(word.word,
@@ -519,7 +538,7 @@ public class ReaderActivity extends AppCompatActivity {
             });
 
             speakUs.setOnClickListener(v->{
-
+                tts.setSpeechRate(0.8f);
                 tts.setLanguage(Locale.US);
 
                 tts.speak(word.word,
@@ -620,5 +639,30 @@ public class ReaderActivity extends AppCompatActivity {
 
                 })
                 .show();
+    }
+
+    private void speakFullArticle() {
+
+        if (tts == null) return;
+
+        tts.setLanguage(Locale.US);
+        tts.setSpeechRate(0.8f);
+        tts.setPitch(1.0f);
+
+        String[] sentences = englishTextOnly.split("(?<=[.!?])\\s+");
+
+        for (String sentence : sentences) {
+
+            if(sentence.trim().isEmpty()) continue;
+
+            tts.speak(sentence,
+                    TextToSpeech.QUEUE_ADD,
+                    null,
+                    null);
+
+            tts.playSilentUtterance(300,
+                    TextToSpeech.QUEUE_ADD,
+                    null);
+        }
     }
 }

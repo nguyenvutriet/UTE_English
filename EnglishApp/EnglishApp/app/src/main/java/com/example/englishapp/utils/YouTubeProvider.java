@@ -15,7 +15,7 @@ import java.util.List;
 
 public class YouTubeProvider {
 
-    private static final String API_KEY = "AIzaSyBMawKqzLUf018gsheHr4M0pHmVLd9lpDk";
+    private static final String API_KEY = "AIzaSyCbeVEH6wyQkaR6g47s6YXoR8A3aiE3wC8";
 
     public interface Callback {
         void onSuccess(List<Video> videos);
@@ -99,7 +99,6 @@ public class YouTubeProvider {
 
         }).start();
     }
-
     public static void fetchChannelIcon(String channelId, ChannelCallback callback) {
 
         new Thread(() -> {

@@ -192,12 +192,26 @@ public class ReminderActivity extends AppCompatActivity {
     private void addCheckBox(String text) {
 
         CheckBox cb = new CheckBox(this);
-
         cb.setText(text);
         cb.setTextSize(16);
 
-        layoutTasks.addView(cb);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
 
+        // convert dp -> px
+        int marginTop = 38;
+
+        // chỉ thêm margin nếu đã có checkbox trước đó
+        if (layoutTasks.getChildCount() > 0) {
+            params.setMargins(0, marginTop, 0, 0);
+        }
+
+        cb.setLayoutParams(params);
+
+        layoutTasks.addView(cb);
     }
 
     // lưu task

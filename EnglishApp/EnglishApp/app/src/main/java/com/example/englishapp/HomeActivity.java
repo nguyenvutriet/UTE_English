@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.englishapp.activity.MainVideoActivity;
 import com.example.englishapp.game.StartGameActivity;
+import com.example.englishapp.ui.GenerateActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -105,6 +106,10 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, StartGameActivity.class));
             });
         }
+    }
+
+    public void openGenerateActivity(View view) {
+        startActivity(new Intent(this, GenerateActivity.class));
     }
 
     private void applyWindowInsets() {

@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
     ActivityResultLauncher<Intent> pickImageLauncher;
+    MaterialButton btnReminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,14 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             return false;
+        });
+        btnReminder = findViewById(R.id.btnReminder);
+
+        btnReminder.setOnClickListener(v -> {
+
+            Intent intent = new Intent(ProfileActivity.this, ReminderActivity.class);
+            startActivity(intent);
+
         });
     }
 

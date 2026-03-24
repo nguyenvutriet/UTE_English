@@ -350,7 +350,7 @@
                         android:layout_marginTop="6dp"
                         android:text="Ngữ pháp"
                         android:textColor="#222222"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -512,6 +512,40 @@
                         android:text="Podcast"
                         android:textColor="#222222"
                         android:textSize="24sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cardGenerate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:onClick="openGenerateActivity"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="82dp"
+                        android:layout_height="82dp"
+                        app:cardBackgroundColor="#7E57C2"
+                        app:cardCornerRadius="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="✨"
+                            android:textColor="#FFFFFF"
+                            android:textSize="30sp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Tạo đề"
+                        android:textColor="#222222"
+                        android:textSize="24sp" />
                 </LinearLayout>
             </GridLayout>
 
