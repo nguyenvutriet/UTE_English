@@ -1,55 +1,54 @@
 package com.example.englishapp.utils;
 
 
+
 import com.example.englishapp.model.Subtitle;
 
-import org.w3c.dom.*;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-
 public class SubtitleParser {
 
-    public static List<Subtitle> parse(InputStream inputStream) {
+    public static List<Subtitle> parse(String srt){
 
         List<Subtitle> list = new ArrayList<>();
 
-        try {
+        String[] blocks = srt.split("\n\n");
 
-            Document doc = DocumentBuilderFactory
-                    .newInstance()
-                    .newDocumentBuilder()
-                    .parse(inputStream);
+        for(String block : blocks){
 
-            NodeList nodes = doc.getElementsByTagName("text");
+            String[] lines = block.split("\n");
 
-            for (int i = 0; i < nodes.getLength(); i++) {
+            if(lines.length >= 3){
 
-                Element element = (Element) nodes.item(i);
+                String time = lines[1];
+
+                String text = lines[2];
 
                 float start =
-                        Float.parseFloat(element.getAttribute("start"));
+                        parseTime(time.split(" --> ")[0]);
 
-                float dur =
-                        Float.parseFloat(element.getAttribute("dur"));
+                float end =
+                        parseTime(time.split(" --> ")[1]);
 
-                String text =
-                        element.getTextContent()
-                                .replace("\n", " ")
-                                .replace("&#39;", "'")
-                                .replace("&quot;", "\"")
-                                .replace("&amp;", "&");
-
-                list.add(new Subtitle(text, start, start + dur));
+                list.add(new Subtitle(text,start,end));
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return list;
+    }
+
+    private static float parseTime(String time){
+
+        String[] parts = time.split(":");
+
+        float hour = Float.parseFloat(parts[0]);
+        float minute = Float.parseFloat(parts[1]);
+
+        String[] secParts = parts[2].split(",");
+
+        float second = Float.parseFloat(secParts[0]);
+
+        return hour*3600 + minute*60 + second;
     }
 }

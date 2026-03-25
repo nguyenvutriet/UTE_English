@@ -30,7 +30,7 @@ public class ViewAllVideosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_all_videos);
+        setContentView(com.example.englishapp.R.layout.activity_view_all_videos);
 
         channelId = getIntent().getStringExtra("channelId");
         channelName = getIntent().getStringExtra("channelName");
@@ -83,7 +83,7 @@ public class ViewAllVideosActivity extends AppCompatActivity {
             tvLargeTitle.setText(channelName);
             
             ImageView channelLogo = findViewById(R.id.channelLogo);
-            YouTubeProvider.fetchChannelIcon(channelId, new YouTubeProvider.ChannelCallback() {
+            YouTubeProvider.fetchChannelIcon(this, channelId, new YouTubeProvider.ChannelCallback() {
                 @Override
                 public void onSuccess(String iconUrl) {
                     runOnUiThread(() -> Picasso.get().load(iconUrl).into(channelLogo));
@@ -96,7 +96,7 @@ public class ViewAllVideosActivity extends AppCompatActivity {
 
     private void loadVideos() {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
-        YouTubeProvider.fetchVideos(channelId, new YouTubeProvider.Callback() {
+        YouTubeProvider.fetchVideos(this, channelId, new YouTubeProvider.Callback() {
             @Override
             public void onSuccess(List<Video> videos) {
                 runOnUiThread(() -> {

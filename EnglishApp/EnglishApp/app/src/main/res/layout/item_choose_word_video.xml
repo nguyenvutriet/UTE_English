@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="14dp"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Indicator dot for active subtitle -->
+    <ImageView
+        android:id="@+id/ivActiveIndicator"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_play_circle_video"
+        app:tint="@color/target_blue"
+        android:visibility="gone" />
+
+    <!-- Subtitle text with missing word -->
+    <TextView
+        android:id="@+id/tvGameSubtitleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_secondary"
+        android:textSize="17sp"
+        android:lineSpacingExtra="4dp"
+        android:paddingEnd="8dp" />
+
+    <!-- Translate icon -->
+    <ImageView
+        android:id="@+id/btnGameTranslate"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_translate_video"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:tint="@color/text_secondary" />
+
+    <!-- Play this sentence -->
+    <ImageView
+        android:id="@+id/btnGamePlaySentence"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_play_circle_video"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:tint="@color/text_secondary" />
+
+</LinearLayout>

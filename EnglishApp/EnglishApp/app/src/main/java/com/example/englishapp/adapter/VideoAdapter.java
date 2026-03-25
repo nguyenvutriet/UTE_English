@@ -14,7 +14,6 @@ import com.example.englishapp.activity.VideoPlayerActivity;
 import com.example.englishapp.model.Video;
 import com.example.englishapp.utils.HistoryDatabaseHelper;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
@@ -37,7 +36,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Chọn layout dựa trên chế độ
-        int layoutRes = isTopicMode ? R.layout.item_video_topic : R.layout.item_video;
+        int layoutRes = isTopicMode ? com.example.englishapp.R.layout.item_video_topic : R.layout.item_video;
         View view = LayoutInflater.from(context).inflate(layoutRes, parent, false);
         return new VideoViewHolder(view);
     }

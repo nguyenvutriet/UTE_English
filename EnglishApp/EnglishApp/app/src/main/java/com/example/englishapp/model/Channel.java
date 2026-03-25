@@ -30,4 +30,12 @@ public class Channel {
     public List<Video> getVideos() {
         return videos;
     }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
 }

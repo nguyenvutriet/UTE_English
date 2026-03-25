@@ -33,7 +33,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:src="@android:drawable/ic_media_play"
-                android:background="@drawable/bg_play_red"
+                android:background="@drawable/bg_play_red_video"
                 android:padding="6dp"
                 app:tint="@android:color/white" />
 

@@ -40,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="12dp"
-            android:background="@drawable/bg_progress_badge"
+            android:background="@drawable/bg_progress_badge_video"
             android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingEnd="8dp"

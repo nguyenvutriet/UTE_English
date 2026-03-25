@@ -28,7 +28,7 @@ public class HorizontalVideoAdapter extends RecyclerView.Adapter<HorizontalVideo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_video_horizontal, parent, false);
+        View view = LayoutInflater.from(context).inflate(com.example.englishapp.R.layout.item_video_horizontal, parent, false);
         return new ViewHolder(view);
     }
 

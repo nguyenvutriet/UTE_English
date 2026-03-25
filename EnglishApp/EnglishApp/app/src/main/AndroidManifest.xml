@@ -20,7 +20,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EnglishApp">
+        android:theme="@style/Theme.EnglishApp"
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
+
+
         <activity android:name=".HomeActivity" />
         <!--        <activity android:name=".HomeActivity" />-->
         <activity android:name=".RegisterActivity" />
@@ -57,8 +61,14 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
         <activity android:name=".activity.MainVideoActivity"/>
-        <activity android:name=".activity.ViewAllVideosActivity"/>
-        <activity android:name=".activity.VideoPlayerActivity"/>
+        <activity
+            android:name=".activity.ViewAllVideosActivity"
+            android:exported="false"
+            android:label="Tất cả video" />
+        <activity
+            android:name=".activity.VideoPlayerActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".activity.SentenceArrangeActivity" />
         <activity android:name=".activity.PictureDescriptionActivity" />
         <activity android:name=".activity.PictureDescriptionResultActivity" />
@@ -67,6 +77,10 @@
         <activity android:name=".activity.FillInTheBlanksResultActivity" />
         <activity android:name=".activity.ListeningPassageActivity" />
         <activity android:name=".activity.ListeningPassageTestSelectActivity" />
+        <activity
+            android:name=".activity.CaptionsActivity"
+            android:exported="false"
+            android:label="Captions" />
 
         <activity android:name=".ui.GenerateActivity" />
         <activity android:name=".ui.QuizActivity" />

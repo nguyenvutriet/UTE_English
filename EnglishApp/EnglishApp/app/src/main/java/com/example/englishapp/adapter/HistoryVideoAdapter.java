@@ -31,7 +31,7 @@ public class HistoryVideoAdapter extends RecyclerView.Adapter<HistoryVideoAdapte
     @NonNull
     @Override
     public HistoryVideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_history_video, parent, false);
+        View view = LayoutInflater.from(context).inflate(com.example.englishapp.R.layout.item_history_video, parent, false);
         return new HistoryVideoViewHolder(view);
     }
 

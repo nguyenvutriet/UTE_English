@@ -9,10 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-
 import com.example.englishapp.R;
 import com.example.englishapp.model.TopicVideo;
-
 import java.util.List;
 
 public class TopicVideoAdapter extends RecyclerView.Adapter<TopicVideoAdapter.ViewHolder> {
@@ -34,7 +32,7 @@ public class TopicVideoAdapter extends RecyclerView.Adapter<TopicVideoAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_topic_video, parent, false);
+        View view = LayoutInflater.from(context).inflate(com.example.englishapp.R.layout.item_topic_video, parent, false);
         return new ViewHolder(view);
     }
 
