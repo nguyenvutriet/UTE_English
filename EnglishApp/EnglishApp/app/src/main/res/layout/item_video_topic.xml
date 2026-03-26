@@ -6,15 +6,34 @@
     android:padding="12dp"
     android:background="?attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/ivWatchedCheck"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    <FrameLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_check_circle_video"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressCircle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:indicatorSize="24dp"
+            app:trackThickness="2dp"
+            app:indicatorColor="#4CAF50"
+            app:trackColor="#CCCCCC"
+            app:trackCornerRadius="2dp"
+            android:max="100" />
+
+        <ImageView
+            android:id="@+id/ivWatchedCheck"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_check_circle_video" />
+    </FrameLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardThumbnail"
@@ -23,7 +42,7 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/ivWatchedCheck"
+        app:layout_constraintStart_toEndOf="@id/progressContainer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 

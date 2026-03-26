@@ -6,6 +6,7 @@ public class Video {
     private String title;
     private String thumbnail;
     private float watchedDuration;
+    private float totalDuration;
 
     public Video(String videoId, String title, String thumbnail) {
         this.videoId = videoId;
@@ -31,5 +32,13 @@ public class Video {
 
     public void setWatchedDuration(float watchedDuration) {
         this.watchedDuration = watchedDuration;
+    }
+
+    public float getTotalDuration() {
+        return totalDuration;
+    }
+
+    public void setTotalDuration(float totalDuration) {
+        this.totalDuration = totalDuration;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.englishapp.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -99,7 +98,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(com.example.englishapp.R.layout.activity_video_player);
+        setContentView(R.layout.activity_video_player);
 
         videoId = getIntent().getStringExtra("videoId");
         videoTitle = getIntent().getStringExtra("videoTitle");
@@ -143,7 +142,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
         btnBackTop.setOnClickListener(v -> {
-            resetToThumbnailState();
+            onBackPressed();
         });
         btnBackBottom.setOnClickListener(v -> {
             layoutSubtitleList.setVisibility(View.GONE);
@@ -263,12 +262,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     gs.isRevealed = true;
                     gs.isSkipped = true;
                     gs.isCorrect = false;
-                    
+
                     // Lấy từ chính xác cần hiện trong thống kê
                     String correctWord = gs.hiddenWord.replaceAll("[^a-zA-Z']", "");
                     if (correctWord.isEmpty()) correctWord = gs.hiddenWord;
                     String normalized = normalizeWord(correctWord);
-                    
+
                     if (!normalized.isEmpty()) skippedWords.add(normalized);
                     if (chooseWordAdapter != null) chooseWordAdapter.notifyItemChanged(currentGameIndex);
                 }
@@ -287,6 +286,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
                         if (playRequested) {
                             activePlayer.play();
                             saveToHistory();
+                        }
+                    }
+
+                    @Override
+                    public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
+                        super.onVideoDuration(youTubePlayer, duration);
+                        if (duration > 0) {
+                            dbHelper.updateTotalDuration(videoId, duration);
                         }
                     }
 
@@ -311,8 +318,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
                         if (subtitleAdapter != null) {
                             if (state == com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants.PlayerState.PLAYING) {
                                 subtitleAdapter.setPlaying(true);
-                            } else if (state == com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants.PlayerState.PAUSED 
-                                || state == com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants.PlayerState.ENDED) {
+                            } else if (state == com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants.PlayerState.PAUSED
+                                    || state == com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants.PlayerState.ENDED) {
                                 subtitleAdapter.setPlaying(false);
                             }
                         }
@@ -331,24 +338,31 @@ public class VideoPlayerActivity extends AppCompatActivity {
                         }
 
                         // Game mode tracking: pause when a full sentence has finished.
-                        if (isGameMode && chooseWordAdapter != null && gameSubtitleList != null && !isGamePaused) {
-                            chooseWordAdapter.updateActiveByTime(second);
-                            int activeIdx = chooseWordAdapter.getCurrentActiveIndex();
-                            if (activeIdx != -1 && activeIdx != currentGameIndex) {
-                                currentGameIndex = activeIdx;
-                                rvGameSubtitles.post(() -> rvGameSubtitles.smoothScrollToPosition(activeIdx));
-                                prepareGameQuestion(activeIdx);
+                        if (isGameMode && chooseWordAdapter != null && gameSubtitleList != null) {
+                            if (currentGameIndex >= 0 && currentGameIndex < gameSubtitleList.size()) {
+                                ChooseWordAdapter.GameSubtitle gs = gameSubtitleList.get(currentGameIndex);
+                                if (!gs.isRevealed && gs.hiddenWordIndex >= 0) {
+                                    float endTime = gs.subtitle.getEndTime();
+                                    // Pause forcefully if we have reached or slightly passed the end time
+                                    if (second >= endTime - 0.05f) {
+                                        youTubePlayer.pause();
+                                        if (!isGamePaused) {
+                                            isGamePaused = true;
+                                            lastGamePausedIndex = currentGameIndex;
+                                        }
+                                        // Do not allow updating to next subtitle until answered
+                                        return;
+                                    }
+                                }
                             }
-                            if (activeIdx != -1 && activeIdx < gameSubtitleList.size()) {
-                                ChooseWordAdapter.GameSubtitle gs = gameSubtitleList.get(activeIdx);
-                                float endTime = gs.subtitle.getEndTime();
-                                if (!gs.isRevealed
-                                        && gs.hiddenWordIndex >= 0
-                                        && second >= endTime - GAME_PAUSE_TOLERANCE_SECONDS
-                                        && lastGamePausedIndex != activeIdx) {
-                                    isGamePaused = true;
-                                    lastGamePausedIndex = activeIdx;
-                                    youTubePlayer.pause();
+
+                            if (!isGamePaused) {
+                                chooseWordAdapter.updateActiveByTime(second);
+                                int activeIdx = chooseWordAdapter.getCurrentActiveIndex();
+                                if (activeIdx != -1 && activeIdx != currentGameIndex) {
+                                    currentGameIndex = activeIdx;
+                                    rvGameSubtitles.post(() -> rvGameSubtitles.smoothScrollToPosition(activeIdx));
+                                    prepareGameQuestion(activeIdx);
                                 }
                             }
                         }
@@ -364,13 +378,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
         dbHelper.addOrUpdateVideo(video, 0f);
     }
 
-    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         View layoutSubtitleList = findViewById(R.id.layoutSubtitleList);
         View layoutChooseWord = findViewById(R.id.layoutChooseWord);
         View layoutSelection = findViewById(R.id.layoutSelection);
-        
+
         if (layoutSubtitleList.getVisibility() == View.VISIBLE) {
             layoutSubtitleList.setVisibility(View.GONE);
             layoutSelection.setVisibility(View.VISIBLE);
@@ -441,14 +454,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         final SubtitleTrack finalSelectedTrack = selectedTrack;
         new Thread(() -> {
-            List<Subtitle> cached = new ArrayList<>();
+            List<Subtitle> cached = new java.util.ArrayList<>();
             try {
-                List<SubtitleEntity> ents = subtitleDao.getByVideoAndLanguage(videoId, finalSelectedTrack.getLanguageCode());
+                java.util.List<SubtitleEntity> ents = subtitleDao.getByVideoAndLanguage(videoId, finalSelectedTrack.getLanguageCode());
                 for (SubtitleEntity e : ents) cached.add(new Subtitle(e.text, e.start_time, e.end_time));
             } catch (Exception ex) {
                 cached = dbHelper.getSavedSubtitles(videoId, finalSelectedTrack.getLanguageCode());
             }
-            final List<Subtitle> cachedFinal = (cached == null) ? new ArrayList<>() : new ArrayList<>(cached);
+            final List<Subtitle> cachedFinal = (cached == null) ? new java.util.ArrayList<>() : new java.util.ArrayList<>(cached);
             if (!cachedFinal.isEmpty()) {
                 allSubtitles = cachedFinal;
                 runOnUiThread(() -> {
@@ -484,7 +497,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     try {
                         String lang = track.getLanguageCode() != null ? track.getLanguageCode() : "en";
                         String trackId = track.getBaseUrl() != null ? track.getBaseUrl() : "";
-                        List<SubtitleEntity> ents = new ArrayList<>();
+                        java.util.List<SubtitleEntity> ents = new java.util.ArrayList<>();
                         long now = System.currentTimeMillis();
                         for (Subtitle s : subs) {
                             ents.add(new SubtitleEntity(videoId, s.getText(), s.getStartTime(), s.getEndTime(), lang, trackId, "youtube_api", now));
@@ -581,22 +594,22 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private List<Subtitle> readLocalSubtitles(String targetVideoId, String language) {
-        List<Subtitle> cached = new ArrayList<>();
+        List<Subtitle> cached = new java.util.ArrayList<>();
         try {
-            List<SubtitleEntity> ents = subtitleDao.getByVideoAndLanguage(targetVideoId, language);
+            java.util.List<SubtitleEntity> ents = subtitleDao.getByVideoAndLanguage(targetVideoId, language);
             for (SubtitleEntity e : ents) {
                 cached.add(new Subtitle(e.text, e.start_time, e.end_time));
             }
         } catch (Exception ex) {
             cached = dbHelper.getSavedSubtitles(targetVideoId, language);
         }
-        return cached == null ? new ArrayList<>() : cached;
+        return cached == null ? new java.util.ArrayList<>() : cached;
     }
 
     private void saveSubtitlesToRoom(String targetVideoId, String language, String trackId, String source, List<Subtitle> subs) {
         new Thread(() -> {
             try {
-                List<SubtitleEntity> ents = new ArrayList<>();
+                java.util.List<SubtitleEntity> ents = new java.util.ArrayList<>();
                 long now = System.currentTimeMillis();
                 for (Subtitle s : subs) {
                     ents.add(new SubtitleEntity(targetVideoId, s.getText(), s.getStartTime(), s.getEndTime(), language, trackId, source, now));
@@ -688,7 +701,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         if (segments != null && segments.length() > 0) {
             boolean isWordLevel = false;
-            JSONObject first = segments.optJSONObject(0);
+            org.json.JSONObject first = segments.optJSONObject(0);
             if (first != null && first.has("word")) {
                 isWordLevel = true;
             }
@@ -701,7 +714,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 int wordCount = 0;
 
                 for (int i = 0; i < segments.length(); i++) {
-                    JSONObject w = segments.optJSONObject(i);
+                    org.json.JSONObject w = segments.optJSONObject(i);
                     if (w == null) {
                         continue;
                     }
@@ -734,7 +747,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 }
             } else {
                 for (int i = 0; i < segments.length(); i++) {
-                    JSONObject s = segments.optJSONObject(i);
+                    org.json.JSONObject s = segments.optJSONObject(i);
                     if (s == null) {
                         continue;
                     }
@@ -855,7 +868,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                                         "manual",
                                         now
                                 );
-                                List<SubtitleEntity> list = new ArrayList<>();
+                                java.util.List<SubtitleEntity> list = new java.util.ArrayList<>();
                                 list.add(e);
                                 subtitleDao.insertAll(list);
                             } catch (Exception ex) {
@@ -1179,7 +1192,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         View btnClose = dialogView.findViewById(R.id.btnDialogClose);
 
         tvWord.setText(word);
-        tvMeaning.setText("Đang tra nghĩa cho từ '" + word + "'...");
+        tvMeaning.setText("Đang tra nghĩa...");
 
         AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
@@ -1189,10 +1202,37 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
 
-        new Handler().postDelayed(() -> {
-            if (dialog.isShowing()) {
-                tvMeaning.setText("Nghĩa của từ '" + word + "' sẽ được hiển thị ở đây. (Tính năng đang phát triển)");
+        translateText(word, tvMeaning);
+    }
+
+    private void translateText(String textToTranslate, TextView tvMeaning) {
+        new Thread(() -> {
+            try {
+                String encodedText = java.net.URLEncoder.encode(textToTranslate, "UTF-8");
+                String url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=vi&dt=t&q=" + encodedText;
+                okhttp3.Request request = new okhttp3.Request.Builder()
+                        .url(url)
+                        .get()
+                        .build();
+
+                try (okhttp3.Response response = httpClient.newCall(request).execute()) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        String jsonString = response.body().string();
+                        org.json.JSONArray jsonArray = new org.json.JSONArray(jsonString);
+                        org.json.JSONArray segments = jsonArray.getJSONArray(0);
+                        StringBuilder translatedText = new StringBuilder();
+                        for (int i = 0; i < segments.length(); i++) {
+                            translatedText.append(segments.getJSONArray(i).getString(0));
+                        }
+
+                        runOnUiThread(() -> tvMeaning.setText(translatedText.toString()));
+                    } else {
+                        runOnUiThread(() -> tvMeaning.setText("Lỗi khi tra nghĩa: HTTP " + response.code()));
+                    }
+                }
+            } catch (Exception e) {
+                runOnUiThread(() -> tvMeaning.setText("Lỗi mạng khi tra nghĩa: " + e.getMessage()));
             }
-        }, 1000);
+        }).start();
     }
 }

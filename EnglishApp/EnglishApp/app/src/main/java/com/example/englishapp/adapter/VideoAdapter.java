@@ -13,6 +13,7 @@ import com.example.englishapp.R;
 import com.example.englishapp.activity.VideoPlayerActivity;
 import com.example.englishapp.model.Video;
 import com.example.englishapp.utils.HistoryDatabaseHelper;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Chọn layout dựa trên chế độ
-        int layoutRes = isTopicMode ? com.example.englishapp.R.layout.item_video_topic : R.layout.item_video;
+        int layoutRes = isTopicMode ? R.layout.item_video_topic : R.layout.item_video;
         View view = LayoutInflater.from(context).inflate(layoutRes, parent, false);
         return new VideoViewHolder(view);
     }
@@ -49,15 +50,39 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         Picasso.get().load(video.getThumbnail()).into(holder.thumbnail);
 
         // Chỉ xử lý dấu tích nếu đang ở chế độ Chủ đề và layout có View này
-        if (isTopicMode && holder.ivWatchedCheck != null) {
-            boolean isWatched = dbHelper.isVideoInHistory(video.getVideoId());
-            if (isWatched) {
-                holder.ivWatchedCheck.setColorFilter(0xFF4CAF50); // Màu xanh (Material Green)
-                holder.ivWatchedCheck.setAlpha(1.0f);
+        if (isTopicMode && holder.progressContainer != null) {
+            Video historyStats = dbHelper.getVideoHistoryStats(video.getVideoId());
+            if (historyStats != null) {
+                float watched = historyStats.getWatchedDuration();
+                float total = historyStats.getTotalDuration();
+
+                if (total > 0 && watched >= total - 5f) {
+                    holder.ivWatchedCheck.setColorFilter(0xFF4CAF50); // Màu xanh (Material Green)
+                    if (holder.progressCircle != null) {
+                        holder.progressCircle.setProgress(100);
+                        holder.progressCircle.setIndicatorColor(0xFF4CAF50);
+                    }
+                } else if (total > 0 && watched > 0) {
+                    holder.ivWatchedCheck.setColorFilter(0xFFCCCCCC); // Vẫn xám
+                    if (holder.progressCircle != null) {
+                        int progress = (int) ((watched / total) * 100);
+                        holder.progressCircle.setProgress(progress);
+                        holder.progressCircle.setIndicatorColor(0xFF4CAF50);
+                    }
+                } else {
+                    holder.ivWatchedCheck.setColorFilter(0xFFCCCCCC);
+                    if (holder.progressCircle != null) {
+                        holder.progressCircle.setProgress(0);
+                    }
+                }
             } else {
-                holder.ivWatchedCheck.setColorFilter(0xFFCCCCCC); // Màu xám (Light Gray)
-                holder.ivWatchedCheck.setAlpha(1.0f);
+                holder.ivWatchedCheck.setColorFilter(0xFFCCCCCC);
+                if (holder.progressCircle != null) {
+                    holder.progressCircle.setProgress(0);
+                }
             }
+        } else if (holder.progressContainer != null) {
+            holder.progressContainer.setVisibility(View.GONE);
         } else if (holder.ivWatchedCheck != null) {
             holder.ivWatchedCheck.setVisibility(View.GONE);
         }
@@ -80,6 +105,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         ImageView thumbnail;
         TextView title, duration;
         ImageView ivWatchedCheck;
+        CircularProgressIndicator progressCircle;
+        View progressContainer;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +114,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             title = itemView.findViewById(R.id.videoTitle);
             duration = itemView.findViewById(R.id.tvDuration);
             ivWatchedCheck = itemView.findViewById(R.id.ivWatchedCheck);
+            progressCircle = itemView.findViewById(R.id.progressCircle);
+            progressContainer = itemView.findViewById(R.id.progressContainer);
         }
     }
 }

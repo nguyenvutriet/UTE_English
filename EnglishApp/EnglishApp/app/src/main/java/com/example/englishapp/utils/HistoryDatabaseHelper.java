@@ -16,7 +16,7 @@ import java.util.List;
 public class HistoryDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "youtube_history.db";
-    private static final int DATABASE_VERSION = 3; // bump to add columns for subtitles metadata
+    private static final int DATABASE_VERSION = 4; // bump to add columns for total_duration
 
     private static final String TABLE_HISTORY = "history";
     private static final String COLUMN_ID = "id";
@@ -25,6 +25,7 @@ public class HistoryDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_THUMBNAIL = "thumbnail";
     private static final String COLUMN_TIMESTAMP = "timestamp";
     private static final String COLUMN_WATCHED_DURATION = "watched_duration";
+    private static final String COLUMN_TOTAL_DURATION = "total_duration";
 
     private static final String TABLE_SAVED_SUBTITLES = "saved_subtitles";
 
@@ -42,7 +43,8 @@ public class HistoryDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_TITLE + " TEXT,"
                 + COLUMN_THUMBNAIL + " TEXT,"
                 + COLUMN_TIMESTAMP + " INTEGER,"
-                + COLUMN_WATCHED_DURATION + " REAL" + ")";
+                + COLUMN_WATCHED_DURATION + " REAL,"
+                + COLUMN_TOTAL_DURATION + " REAL DEFAULT 0" + ")";
 
         db.execSQL(CREATE_HISTORY_TABLE);
 
@@ -93,6 +95,12 @@ public class HistoryDatabaseHelper extends SQLiteOpenHelper {
 
                 try {
                     db.execSQL("CREATE INDEX IF NOT EXISTS idx_saved_subtitles_video_language ON " + TABLE_SAVED_SUBTITLES + "(video_id, language)");
+                } catch (Exception ignored) {}
+            }
+
+            if (oldVersion < 4) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_HISTORY + " ADD COLUMN " + COLUMN_TOTAL_DURATION + " REAL DEFAULT 0");
                 } catch (Exception ignored) {}
             }
 
@@ -148,6 +156,32 @@ public class HistoryDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_WATCHED_DURATION, duration);
         db.update(TABLE_HISTORY, values, COLUMN_VIDEO_ID + "=?", new String[]{videoId});
         db.close();
+    }
+
+    public void updateTotalDuration(String videoId, float duration) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TOTAL_DURATION, duration);
+        db.update(TABLE_HISTORY, values, COLUMN_VIDEO_ID + "=?", new String[]{videoId});
+        db.close();
+    }
+
+    public Video getVideoHistoryStats(String videoId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_HISTORY, new String[]{COLUMN_WATCHED_DURATION, COLUMN_TOTAL_DURATION},
+                COLUMN_VIDEO_ID + "=?", new String[]{videoId},
+                null, null, null);
+        Video v = null;
+        if (cursor.moveToFirst()) {
+            v = new Video(videoId, "", "");
+            int wdIdx = cursor.getColumnIndex(COLUMN_WATCHED_DURATION);
+            int tdIdx = cursor.getColumnIndex(COLUMN_TOTAL_DURATION);
+            if (wdIdx != -1) v.setWatchedDuration(cursor.getFloat(wdIdx));
+            if (tdIdx != -1) v.setTotalDuration(cursor.getFloat(tdIdx));
+        }
+        cursor.close();
+        db.close();
+        return v;
     }
 
     public List<Video> getAllHistoryVideos() {
