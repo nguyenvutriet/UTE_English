@@ -2,13 +2,16 @@ package com.example.englishapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void applyWindowInsets() {
-        View rootView = findViewById(R.id.main);
+        android.view.View rootView = findViewById(R.id.main);
         if (rootView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -35,8 +38,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupActions() {
         findViewById(R.id.btnLogin).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
+            EditText etEmail = findViewById(R.id.etEmail);
+            String rawInput = etEmail.getText().toString().trim();
+            String username = extractUsername(rawInput);
+
+            if (username.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập username hoặc email", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Class<?> destination = username.equals("admin")
+                    ? AdminDashboardActivity.class
+                    : HomeActivity.class;
+
+            startActivity(new Intent(MainActivity.this, destination));
             finish();
         });
 
@@ -44,5 +59,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+    }
+
+    private String extractUsername(String input) {
+        if (input == null) {
+            return "";
+        }
+        String normalized = input.trim().toLowerCase(Locale.ROOT);
+        int atIndex = normalized.indexOf('@');
+        return atIndex > 0 ? normalized.substring(0, atIndex) : normalized;
     }
 }
