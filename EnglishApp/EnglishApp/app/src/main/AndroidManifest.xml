@@ -60,6 +60,8 @@
         <activity android:name=".PodcastActivity"/>
         <activity android:name=".SearchActivity"/>
         <activity android:name=".ReaderActivity"/>
+        <activity android:name=".FavoriteActivity"/>
+        <activity android:name=".AdminDashboardActivity"/>
         <activity android:name=".activity.MainVideoActivity"/>
         <activity
             android:name=".activity.ViewAllVideosActivity"
@@ -93,7 +95,7 @@
             android:foregroundServiceType="mediaPlayback"/>
 
         <activity
-            android:name=".AdminDashboardActivity"
+            android:name=".MainActivity"
 
             android:exported="true">
             <intent-filter>

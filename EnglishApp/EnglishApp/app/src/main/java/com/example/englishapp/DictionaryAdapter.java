@@ -86,14 +86,14 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
 
         holder.star.setOnClickListener(v -> {
 
-            SharedPreferences.Editor editor = pref.edit();
+            boolean currentState = pref.getBoolean(w.word, false);
+            boolean newState = !currentState;
 
-            boolean newState = !pref.getBoolean(w.word,false);
+            pref.edit().putBoolean(w.word, newState).apply();
 
-            editor.putBoolean(w.word,newState);
-            editor.apply();
-
-            notifyItemChanged(position);
+            holder.star.setImageResource(newState ?
+                    android.R.drawable.btn_star_big_on :
+                    android.R.drawable.btn_star_big_off);
 
         });
 

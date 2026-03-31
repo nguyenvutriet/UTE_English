@@ -35,9 +35,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupActions() {
         findViewById(R.id.btnLogin).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+
+            String username = ((android.widget.EditText)findViewById(R.id.etEmail))
+                    .getText().toString().trim();
+
+            String password = ((android.widget.EditText)findViewById(R.id.etPassword))
+                    .getText().toString().trim();
+
+            if (username.equals("admin") && password.equals("123")) {
+
+                startActivity(new Intent(MainActivity.this, AdminDashboardActivity.class));
+                finish();
+
+            } else if (username.equals("user") && password.equals("123")) {
+
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                finish();
+
+            } else {
+
+                android.widget.Toast.makeText(this, "Sai tài khoản hoặc mật khẩu", android.widget.Toast.LENGTH_SHORT).show();
+
+            }
         });
 
         findViewById(R.id.tvRegister).setOnClickListener(v -> {

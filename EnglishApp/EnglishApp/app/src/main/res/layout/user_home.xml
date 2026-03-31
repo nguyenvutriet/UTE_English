@@ -36,7 +36,9 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <LinearLayout android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/btnKhoTu"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
@@ -174,13 +176,18 @@
                     android:src="@android:drawable/ic_menu_search"
                     app:tint="#1B4DDA" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Tra từ"
-                    android:textColor="#9E9E9E"
-                    android:textSize="15sp"/>
+                <EditText
+                    android:id="@+id/edtSearchHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input_background"
+                    android:hint="Tra từ"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="15sp"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"/>
 
             </LinearLayout>
 

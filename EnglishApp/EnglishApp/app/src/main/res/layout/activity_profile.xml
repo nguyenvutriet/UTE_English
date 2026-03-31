@@ -133,6 +133,7 @@
                     android:textColor="@android:color/white"/>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogout"
                     android:text="Đăng xuất"
                     android:textColor="#D32F2F"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"

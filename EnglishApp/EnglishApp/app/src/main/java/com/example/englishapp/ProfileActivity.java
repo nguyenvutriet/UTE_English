@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,6 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> pickImageLauncher;
     MaterialButton btnReminder;
 
+    MaterialButton btnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         imgAvatar = findViewById(R.id.imgAvatar);
         edtName = findViewById(R.id.edtName);
+        btnLogout = findViewById(R.id.btnLogout);
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
@@ -105,6 +110,32 @@ public class ProfileActivity extends AppCompatActivity {
 
             Intent intent = new Intent(ProfileActivity.this, ReminderActivity.class);
             startActivity(intent);
+
+        });
+
+        btnLogout.setOnClickListener(v -> {
+
+            AlertDialog dialog = new MaterialAlertDialogBuilder(ProfileActivity.this)
+                    .setTitle("Đăng xuất")
+                    .setMessage("Bạn có chắc muốn đăng xuất không?")
+                    .setNegativeButton("Huỷ", null)
+                    .setPositiveButton("Đăng xuất", (d, w) -> {
+
+                        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                        finishAffinity();
+
+                    })
+                    .create();
+
+            dialog.show();
+
+// màu nút
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(getResources().getColor(android.R.color.darker_gray));
+
 
         });
     }

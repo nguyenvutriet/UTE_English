@@ -3,6 +3,8 @@ package com.example.englishapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ public class HomeActivity extends AppCompatActivity {
 
     LinearLayout btnProfile, btnGrammar, cardGame, btnVideo;
     LinearLayout cardPodcast, cardReader;
+
+    LinearLayout btnKhoTu;
     TextView btnLearningMethod;
     CardView cardVocabulary, cardExerciseHome, cardDictionaryHome;
 
@@ -43,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         cardPodcast = findViewById(R.id.cardPodcast);
         cardReader = findViewById(R.id.cardReader);
         btnVideo = findViewById(R.id.btnVideo); // Fix: Thêm dòng này
-
+        btnKhoTu = findViewById(R.id.btnKhoTu);
         applyWindowInsets();
 
         // Thiết lập sự kiện click
@@ -106,6 +110,35 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, StartGameActivity.class));
             });
         }
+
+        if (btnKhoTu != null) {
+            btnKhoTu.setOnClickListener(v -> {
+                startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
+            });
+        }
+
+        EditText edtSearchHome = findViewById(R.id.edtSearchHome);
+
+        edtSearchHome.setOnEditorActionListener((v, actionId, event) -> {
+
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    actionId == EditorInfo.IME_ACTION_DONE) {
+
+                String keyword = edtSearchHome.getText().toString().trim();
+
+                if (!keyword.isEmpty()) {
+
+                    Intent intent = new Intent(HomeActivity.this, DictionaryActivity.class);
+                    intent.putExtra("keyword", keyword); // gửi từ khóa
+                    startActivity(intent);
+                }
+
+                return true;
+            }
+
+            return false;
+        });
+
     }
 
     public void openGenerateActivity(View view) {

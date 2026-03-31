@@ -42,14 +42,21 @@ public class DictionaryActivity extends AppCompatActivity {
         adapter = new DictionaryAdapter(this, filteredList);
         recycler.setAdapter(adapter);
 
+        String keyword = getIntent().getStringExtra("keyword");
+
+        EditText search = findViewById(R.id.edtSearch);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            search.setText(keyword);       // hiển thị lại từ đã gõ
+            filterWords(keyword);          // auto search
+        }
+
         ImageView btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> {
             startActivity(new Intent(DictionaryActivity.this, HomeActivity.class));
             finish();
         });
-        
-        EditText search = findViewById(R.id.edtSearch);
 
         // 🔎 search khi đang gõ
         search.addTextChangedListener(new TextWatcher() {
