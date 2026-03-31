@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class OpenAIService { // Bạn có thể đổi tên thành GeminiService cho đúng bản chất nhé
 
-    private static final String API_KEY = "API_KEY";
+    private static final String API_KEY = "AIzaSyCknbktb754BZg9kLzby5ET83UqPKwMTJM";
     // Endpoint của Gemini (model gemini-1.5-flash hoặc gemini-1.5-pro)
 // Sử dụng gemini-2.0-flash (vì nó có trong danh sách curl của bạn)
 // Đổi model sang 1.5 Flash
