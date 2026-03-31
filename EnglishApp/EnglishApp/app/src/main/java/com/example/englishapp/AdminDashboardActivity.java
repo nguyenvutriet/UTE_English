@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
@@ -23,25 +24,33 @@ public class AdminDashboardActivity extends AppCompatActivity {
         // 1. Vẽ biểu đồ dữ liệu tĩnh
         setupFakeChart();
 
-//        // 2. Ánh xạ các nút bấm từ XML
-//        Button btnQuiz = findViewById(R.id.btnQuiz);
-//        Button btnVocab = findViewById(R.id.btnVocab);
+        // 2. Ánh xạ các nút bấm từ XML
+        Button btnQuiz = findViewById(R.id.btnQuiz);
+        Button btnVocab = findViewById(R.id.btnVocab);
         Button btnUser = findViewById(R.id.btnUser);
+        Button btnLogout = findViewById(R.id.btnLogout);
 
-//        // 3. Xử lý sự kiện Click (Controller logic)
-//        btnQuiz.setOnClickListener(v -> {
-//            Intent intent = new Intent(AdminDashboardActivity.this, QuizManageActivity.class);
-//            startActivity(intent);
-//        });
-//
-//        btnVocab.setOnClickListener(v -> {
-//            Intent intent = new Intent(AdminDashboardActivity.this, VocabManageActivity.class);
-//            startActivity(intent);
-//        });
+        // 3. Xử lý sự kiện Click (Controller logic)
+        btnQuiz.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboardActivity.this, QuizManageActivity.class);
+            startActivity(intent);
+        });
+
+        btnVocab.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboardActivity.this, VocabManageActivity.class);
+            startActivity(intent);
+        });
 
         btnUser.setOnClickListener(v -> {
             Intent intent = new Intent(AdminDashboardActivity.this, AccountManageActivity.class);
             startActivity(intent);
+        });
+
+        btnLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboardActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
         });
     }
 

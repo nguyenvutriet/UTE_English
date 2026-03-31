@@ -80,6 +80,8 @@
         <activity android:name=".activity.ListeningPassageActivity" />
         <activity android:name=".activity.ListeningPassageTestSelectActivity" />
         <activity android:name=".AccountManageActivity" />
+        <activity android:name=".QuizManageActivity" />
+        <activity android:name=".VocabManageActivity" />
         <activity
             android:name=".activity.CaptionsActivity"
             android:exported="false"
@@ -96,7 +98,6 @@
 
         <activity
             android:name=".MainActivity"
-
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

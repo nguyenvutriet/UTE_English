@@ -60,7 +60,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView android:text="Đang Online" android:textSize="13sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                    <TextView android:text="Hoạt động 7 ngày qua" android:textSize="13sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     <TextView android:id="@+id/tvOnline" android:text="85" android:textSize="22sp" android:textStyle="bold" android:textColor="#D32F2F" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -157,18 +157,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="12dp"
             android:text="Đăng xuất"
+            app:icon="@android:drawable/ic_lock_power_off"
+            app:iconGravity="start"
+            app:iconPadding="16dp"
+            android:paddingStart="20dp"
+            app:cornerRadius="12dp"
             android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            app:cornerRadius="14dp"
-            android:backgroundTint="#E53935"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 </ScrollView>
