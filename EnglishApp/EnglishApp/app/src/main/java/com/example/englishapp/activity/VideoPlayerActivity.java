@@ -525,7 +525,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             public void onError(Exception e) {
                 runOnUiThread(() -> {
                     layoutSubtitleLoading.setVisibility(View.GONE);
-                    Toast.makeText(VideoPlayerActivity.this, "Không thể tải ngôn ngữ này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VideoPlayerActivity.this, "", Toast.LENGTH_SHORT).show();
                     String lang = track.getLanguageCode() == null ? "" : track.getLanguageCode().toLowerCase();
                     if ("en".equals(lang) || allSubtitles == null || allSubtitles.isEmpty()) {
                         loadSubtitles(startGame);
@@ -561,7 +561,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 if (serverSubs == null || serverSubs.isEmpty()) {
                     runOnUiThread(() -> {
                         layoutSubtitleLoading.setVisibility(View.GONE);
-                        Toast.makeText(this, "Không lấy được nội dung video từ server", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "", Toast.LENGTH_LONG).show();
                         if (startGame) {
                             layoutChooseWord.setVisibility(View.GONE);
                             findViewById(R.id.layoutSelection).setVisibility(View.VISIBLE);

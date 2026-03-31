@@ -88,7 +88,7 @@ public class YouTubeSubtitleApi {
                 List<SubtitleTrack> tracks = extractCaptionTracks(html);
 
                 if (tracks.isEmpty()) {
-                    callback.onError(new Exception("Video này không có subtitle công khai"));
+                    callback.onError(new Exception(""));
                 } else {
                     callback.onSuccess(new VideoInfo(videoId, title, thumbnailUrl, tracks));
                 }
@@ -120,7 +120,7 @@ public class YouTubeSubtitleApi {
                 String content = httpGet(fetchUrl);
 
                 if (content == null || content.trim().isEmpty()) {
-                    callback.onError(new IOException("Phản hồi rỗng từ subtitle URL"));
+                    callback.onError(new IOException(""));
                     return;
                 }
 
@@ -136,7 +136,7 @@ public class YouTubeSubtitleApi {
                 }
 
                 if (subtitles.isEmpty()) {
-                    callback.onError(new Exception("Không parse được subtitle từ track này"));
+                    callback.onError(new Exception(""));
                 } else {
                     Log.d(TAG, "getSubtitles OK: " + subtitles.size() + " dòng, lang=" + track.getLanguageCode());
                     callback.onSuccess(subtitles);
@@ -169,7 +169,7 @@ public class YouTubeSubtitleApi {
                 }
                 if (content != null && content.length() > 10000) {
                     // Có nội dung nhưng không có subtitles – video có thể ko có sub
-                    Log.d(TAG, "Watch page tải được nhưng không có captionTracks");
+                    Log.d(TAG, "");
                     return content;
                 }
             } catch (Exception e) {
