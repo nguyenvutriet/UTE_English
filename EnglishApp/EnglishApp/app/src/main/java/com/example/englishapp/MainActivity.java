@@ -39,27 +39,47 @@ public class MainActivity extends AppCompatActivity {
     private void setupActions() {
         findViewById(R.id.btnLogin).setOnClickListener(v -> {
 
-            String username = ((android.widget.EditText)findViewById(R.id.etEmail))
+            String email = ((android.widget.EditText)findViewById(R.id.etEmail))
                     .getText().toString().trim();
 
             String password = ((android.widget.EditText)findViewById(R.id.etPassword))
                     .getText().toString().trim();
 
-            if (username.equals("admin") && password.equals("123")) {
+            android.content.SharedPreferences prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
 
-                startActivity(new Intent(MainActivity.this, AdminDashboardActivity.class));
+            // admin
+            if (email.equals("admin") && password.equals("123")) {
+                startActivity(new Intent(this, AdminDashboardActivity.class));
                 finish();
+                return;
+            }
 
-            } else if (username.equals("user") && password.equals("123")) {
+            String json = prefs.getString("users", "[]");
 
-                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                finish();
+            try {
+                org.json.JSONArray array = new org.json.JSONArray(json);
 
-            } else {
+                for (int i = 0; i < array.length(); i++) {
+
+                    org.json.JSONObject user = array.getJSONObject(i);
+
+                    if (user.getString("email").equals(email)
+                            && user.getString("password").equals(password)) {
+
+                        prefs.edit().putBoolean("isLogin", true).apply();
+
+                        startActivity(new Intent(this, HomeActivity.class));
+                        finish();
+                        return;
+                    }
+                }
 
                 android.widget.Toast.makeText(this, "Sai tài khoản hoặc mật khẩu", android.widget.Toast.LENGTH_SHORT).show();
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         });
 
         findViewById(R.id.tvRegister).setOnClickListener(v -> {
