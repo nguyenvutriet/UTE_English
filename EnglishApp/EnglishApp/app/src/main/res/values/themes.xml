@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EnglishApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorSurface">@color/white</item>
+<!--        <item name="colorPrimary">@color/white</item>-->
+<!--        <item name="colorSurface">@color/white</item>-->
 
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
